@@ -22,7 +22,11 @@ Selected published screenshots and the video framing were visually reviewed. The
 
 ## Launch destinations
 
-GitHub repository and a source-preview release are the primary public destinations. Other channels require a confirmed publication URL before they are listed as posted.
+Published repository: https://github.com/michaelswissa/jevry
+
+Published source-preview release with demo assets: https://github.com/michaelswissa/jevry/releases/tag/v0.4.0-beta.13
+
+GitHub secret scanning, push protection, vulnerability alerts, and private vulnerability reporting are enabled. Other channels require a confirmed publication URL before they are listed as posted.
 
 LinkedIn was signed in as Michael Swissa during preparation. X, Hacker News, and Product Hunt showed login requirements. A browser-owned notification prompt subsequently returned browser control to the user; publishing through that browser remains pending until the user resolves it and confirms resumption.
 
@@ -31,3 +35,5 @@ Hacker News requires the founder to write their own submission and comments unde
 ## Frozen snapshot checks
 
 `npm ci` completed with zero reported dependency vulnerabilities. `npm test` passed 571 tests with 100 default opt-in skips; `npm run build` passed; `npm run test:engine-browser` passed all 120 selected Chromium checks. The real Electron desktop workflow passed nine checks, and native research passed eight checks. Providers in these acceptance workflows are deterministic local fixtures, not a live quality measurement.
+
+The native verification-assistance smoke workflow also passed on owned, intercepted local fixtures. This does not establish success against live verification providers. The GitHub macOS/Windows matrix started after publication; local checks above are distinct from hosted CI.
