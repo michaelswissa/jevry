@@ -28,6 +28,14 @@
 
 Browse normally, hand over a task, watch each action, and redirect when needed. Your tabs and conversations stay in one workspace.
 
+## Nearly 100 stars in about 3 hours
+
+Thank you to everyone who starred Jevry, tried it, and shared feedback on launch day.
+
+[![Jevry launch-day star history, approaching 100 GitHub stars within a few hours on September 24, 2026](docs/media/star-history-2026-09-24.png)](https://github.com/michaelswissa/jevry/stargazers)
+
+*Launch-day snapshot · September 24, 2026 · Chart from [Star History](https://star-history.com/#michaelswissa/jevry&Date).*
+
 ## See it in action
 
 ![Latest Jevry workspace with the full chrome J artwork, updated conversation sidebar, and browser navigation](docs/media/workspace-latest.png)
