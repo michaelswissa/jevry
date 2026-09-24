@@ -9,6 +9,10 @@
 
 <p align="center"><strong>Language models plan. Jev decides. Chromium acts.</strong><br>An open-source desktop browser that turns natural-language tasks into<br>structured decisions, guarded actions, and observable results.</p>
 
+[![Watch the Jevry introduction video](docs/media/jevry-web-preview.gif)](https://github.com/michaelswissa/jevry/releases/download/v0.4.0-beta.13/jevry-web.mp4)
+
+**[▶ Watch the full Jevry introduction · 72 seconds](https://github.com/michaelswissa/jevry/releases/download/v0.4.0-beta.13/jevry-web.mp4)**
+
 <p align="center">
   <a href="#install">Install</a> ·
   <a href="#see-it-in-action">Demo</a> ·
@@ -27,14 +31,6 @@
 **Jevry explores a practical question: what happens when a browser's next action is a typed model decision?** The browser observes its current state, offers the actions it can actually execute, and asks TypeSafe's Jev to choose. A separate text model handles planning, language, and occasional visual reasoning. The desktop runtime owns execution, cancellation, and evidence.
 
 Browse normally, hand over a task, watch each action, and redirect when needed. Your tabs and conversations stay in one workspace.
-
-## Nearly 100 stars in about 3 hours
-
-Thank you to everyone who starred Jevry, tried it, and shared feedback on launch day.
-
-[![Jevry launch-day star history, approaching 100 GitHub stars within a few hours on September 24, 2026](docs/media/star-history-2026-09-24.png)](https://github.com/michaelswissa/jevry/stargazers)
-
-*Launch-day snapshot · September 24, 2026 · Chart from [Star History](https://star-history.com/#michaelswissa/jevry&Date).*
 
 ## See it in action
 

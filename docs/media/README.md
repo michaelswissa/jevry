@@ -11,3 +11,7 @@ The screenshots show the latest local desktop design, which advanced after the p
 The game GIF and MP4 remain historical evidence from the earlier interface. They are retained in a labeled expandable README section; they have not been reskinned or presented as a new run. See `docs/launch/DEMO.md` for source timestamps.
 
 All selected images were visually checked for the expected design and visible private information before publication.
+
+## Introduction video
+
+`jevry-web-preview.gif` is an 8-second excerpt (seconds 1–9, at original speed) of the user-supplied `jevry-web.mp4`, resized to 960 pixels wide at 10 fps for the README. The preview links to the unchanged 72.2-second original video hosted as a GitHub release asset. This promotional overview is separate from the recorded game evidence and benchmark reports.
