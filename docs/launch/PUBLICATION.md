@@ -37,3 +37,7 @@ Hacker News requires the founder to write their own submission and comments unde
 `npm ci` completed with zero reported dependency vulnerabilities. `npm test` passed 571 tests with 100 default opt-in skips; `npm run build` passed; `npm run test:engine-browser` passed all 120 selected Chromium checks. The real Electron desktop workflow passed nine checks, and native research passed eight checks. Providers in these acceptance workflows are deterministic local fixtures, not a live quality measurement.
 
 The native verification-assistance smoke workflow also passed on owned, intercepted local fixtures. This does not establish success against live verification providers. The GitHub macOS/Windows matrix started after publication; local checks above are distinct from hosted CI.
+
+## First hosted Windows run
+
+The first Windows CI run failed five provider tests: four fixtures mixed hard-coded POSIX expected paths with host-native path construction, and one asserted POSIX permission bits on Windows. The fixture paths now use the host path helper. The POSIX-only mode assertion runs on POSIX hosts; real file contents, cancellation drainage, and deletion are still checked on Windows. Windows ACL isolation is not established by that test. No production provider or game logic changed. The original failed CI run remains available in GitHub Actions.

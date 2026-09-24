@@ -1,5 +1,6 @@
 import { EventEmitter } from 'node:events'
 import { PassThrough } from 'node:stream'
+import { join } from 'node:path'
 import { readFile, stat } from 'node:fs/promises'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { clearProviderSession, generateFieldText, generatePlan, generateVisionPlan, getProviderDiagnostics, getProviderStatus, installProvider, loginProvider, stopProviderProcesses, validateTextConnection, type VisionImage } from './providers'
@@ -157,8 +158,8 @@ describe('private CLI installation', () => {
   const tools = '/tmp/jevry-provider-test-tools'
   const npm = '/test/node_modules/npm/bin/npm-cli.js'
   const binaries = {
-    codex: `${tools}/node_modules/@openai/codex-darwin-arm64/vendor/aarch64-apple-darwin/bin/codex`,
-    claude: `${tools}/node_modules/@anthropic-ai/claude-code-darwin-arm64/claude`,
+    codex: join(tools, 'node_modules', '@openai', 'codex-darwin-arm64', 'vendor', 'aarch64-apple-darwin', 'bin', 'codex'),
+    claude: join(tools, 'node_modules', '@anthropic-ai', 'claude-code-darwin-arm64', 'claude'),
   }
   function setup() {
     vi.stubGlobal('process', { ...process, platform: 'darwin', arch: 'arm64', env: { JEVRY_TOOLS_DIR: tools, npm_execpath: npm } })
@@ -639,7 +640,9 @@ describe('single-image provider requests', () => {
     expect(args).toContain('--ephemeral'); expect(args).toContain('--ignore-user-config')
     expect(args).toContain('chosen-model'); expect(args).not.toContain(image.data)
     expect(await readFile(imagePath, 'base64')).toBe(image.data)
-    expect((await stat(imagePath)).mode & 0o777).toBe(0o600)
+    // Windows stat exposes synthesized POSIX bits, not the file's access-control list.
+    // Keep the real content, cancellation drainage, and deletion checks on every host.
+    if (process.platform !== 'win32') expect((await stat(imagePath)).mode & 0o777).toBe(0o600)
     controller.abort(); await Promise.resolve()
     expect(settled).toBe(false); expect((await stat(imagePath)).isFile()).toBe(true)
     children[1].emit('close', null); await rejected
