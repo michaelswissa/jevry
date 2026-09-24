@@ -1,6 +1,6 @@
 # Contributing to Jevry
 
-Start with a small, reproducible browser task. Open an issue before a large change so we can agree on scope. Pull requests that fix a documented failure are welcome.
+**Pull requests are welcome.** Start with a small, reproducible browser task. Open an issue before a large change so we can agree on scope. Pull requests that fix a documented failure are welcome.
 
 ## Local setup
 
@@ -23,3 +23,15 @@ Security reports belong in GitHub's private vulnerability reporting flow; see [S
 ## Pull requests
 
 Explain the user-visible change and the checks you ran, including skips and limitations. Keep third-party attribution intact. Contributions to original project code are under the MIT license.
+
+## Your first contribution
+
+1. Fork the repository on GitHub and clone your fork.
+2. Create a focused branch: `git switch -c fix/describe-the-problem`.
+3. Reproduce the issue with a public or local fixture and make the smallest useful change.
+4. Run the relevant checks above. Explain any skipped or unavailable checks.
+5. Push your branch and open a pull request against `michaelswissa/jevry:main`.
+
+For documentation-only changes, check links, setup commands, and technical claims; a full runtime test run is usually unnecessary. For benchmark summaries, keep every attempt and preserve missing/incomplete results. For decision-schema changes, inspect both action quality and total task time.
+
+Useful starting areas include installation instructions, accessible control names, reproducible browser fixtures, state-size reduction, completion coverage, and benchmark setup. Open a discussion if you want to explore a larger architectural change.

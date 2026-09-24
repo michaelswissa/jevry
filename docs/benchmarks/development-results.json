@@ -1,0 +1,1459 @@
+{
+  "schemaVersion": 1,
+  "benchmark": "WebArena-Verified",
+  "fullSuiteTasks": 812,
+  "scope": "Maintainer-exported summaries of retained development attempts. Not held-out, full-suite, independently reproduced, or leaderboard results. Missing official scores remain null, not passes. Never combine successes across attempts.",
+  "privacy": "Whitelist projection of run metadata and official task-level status/score/version/checksum. No intents, answers, evaluator assertions, traces, request payloads, credentials, or session data. Raw artifacts remain local.",
+  "runs": [
+    {
+      "attempt": "beta4-baseline-001",
+      "kind": "development",
+      "startedAt": "2026-09-23T18:16:54.702Z",
+      "finishedAt": "2026-09-23T18:19:53.688Z",
+      "taskIds": [
+        0,
+        11,
+        41
+      ],
+      "upstreamCommit": "6473f72db5dcefc97b5725b59e734504edc28a21",
+      "plannedTasks": 3,
+      "officiallyScoredTasks": 3,
+      "officialPasses": 0,
+      "completeScore": true,
+      "sourceDriftDetected": false,
+      "hostInterruptionCount": 0,
+      "tasks": [
+        {
+          "taskId": 0,
+          "actorStatus": "error",
+          "durationMs": 64661,
+          "actorBundleSha256": "c872beaf5635e6d10e6026bc854dda92d4f7d88da920e8563dde00e964852f4f",
+          "officialStatus": "failure",
+          "officialScore": 0.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 11,
+          "actorStatus": "error",
+          "durationMs": 34191,
+          "actorBundleSha256": "c872beaf5635e6d10e6026bc854dda92d4f7d88da920e8563dde00e964852f4f",
+          "officialStatus": "failure",
+          "officialScore": 0.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 41,
+          "actorStatus": "error",
+          "durationMs": 69817,
+          "actorBundleSha256": "c872beaf5635e6d10e6026bc854dda92d4f7d88da920e8563dde00e964852f4f",
+          "officialStatus": "failure",
+          "officialScore": 0.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        }
+      ]
+    },
+    {
+      "attempt": "fix-001",
+      "kind": "development",
+      "startedAt": "2026-09-23T18:33:06.093Z",
+      "finishedAt": "2026-09-23T18:35:43.435Z",
+      "taskIds": [
+        0,
+        11,
+        41
+      ],
+      "upstreamCommit": "6473f72db5dcefc97b5725b59e734504edc28a21",
+      "plannedTasks": 3,
+      "officiallyScoredTasks": 3,
+      "officialPasses": 2,
+      "completeScore": true,
+      "sourceDriftDetected": false,
+      "hostInterruptionCount": 0,
+      "tasks": [
+        {
+          "taskId": 0,
+          "actorStatus": "complete",
+          "durationMs": 70715,
+          "actorBundleSha256": "b0fe019180f1fb01feac8185fbf5d4ba02ea4ed1d2724c3bec72c9e8c776decd",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 11,
+          "actorStatus": "complete",
+          "durationMs": 53054,
+          "actorBundleSha256": "b0fe019180f1fb01feac8185fbf5d4ba02ea4ed1d2724c3bec72c9e8c776decd",
+          "officialStatus": "failure",
+          "officialScore": 0.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 41,
+          "actorStatus": "complete",
+          "durationMs": 22954,
+          "actorBundleSha256": "b0fe019180f1fb01feac8185fbf5d4ba02ea4ed1d2724c3bec72c9e8c776decd",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        }
+      ]
+    },
+    {
+      "attempt": "fix-002",
+      "kind": "development",
+      "startedAt": "2026-09-23T18:38:38.140Z",
+      "finishedAt": "2026-09-23T18:40:42.440Z",
+      "taskIds": [
+        0,
+        11,
+        41
+      ],
+      "upstreamCommit": "6473f72db5dcefc97b5725b59e734504edc28a21",
+      "plannedTasks": 3,
+      "officiallyScoredTasks": 3,
+      "officialPasses": 2,
+      "completeScore": true,
+      "sourceDriftDetected": false,
+      "hostInterruptionCount": 0,
+      "tasks": [
+        {
+          "taskId": 0,
+          "actorStatus": "complete",
+          "durationMs": 55587,
+          "actorBundleSha256": "8217194966151bcd4f5899b3206507cbd3b2a56a05e92a075f967f0e21320d1e",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 11,
+          "actorStatus": "complete",
+          "durationMs": 32465,
+          "actorBundleSha256": "8217194966151bcd4f5899b3206507cbd3b2a56a05e92a075f967f0e21320d1e",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 41,
+          "actorStatus": "complete",
+          "durationMs": 27206,
+          "actorBundleSha256": "8217194966151bcd4f5899b3206507cbd3b2a56a05e92a075f967f0e21320d1e",
+          "officialStatus": "failure",
+          "officialScore": 0.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        }
+      ]
+    },
+    {
+      "attempt": "fix-003",
+      "kind": "development",
+      "startedAt": "2026-09-23T18:45:49.581Z",
+      "finishedAt": "2026-09-23T18:50:06.679Z",
+      "taskIds": [
+        0,
+        11,
+        41,
+        27,
+        66,
+        399
+      ],
+      "upstreamCommit": "6473f72db5dcefc97b5725b59e734504edc28a21",
+      "plannedTasks": 6,
+      "officiallyScoredTasks": 6,
+      "officialPasses": 4,
+      "completeScore": true,
+      "sourceDriftDetected": false,
+      "hostInterruptionCount": 0,
+      "tasks": [
+        {
+          "taskId": 0,
+          "actorStatus": "complete",
+          "durationMs": 51024,
+          "actorBundleSha256": "daf02dc48d8e8b1db6c23a16e322593fe01360ef806fb45ef5b75626387250a1",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 11,
+          "actorStatus": "complete",
+          "durationMs": 42288,
+          "actorBundleSha256": "daf02dc48d8e8b1db6c23a16e322593fe01360ef806fb45ef5b75626387250a1",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 41,
+          "actorStatus": "complete",
+          "durationMs": 12054,
+          "actorBundleSha256": "daf02dc48d8e8b1db6c23a16e322593fe01360ef806fb45ef5b75626387250a1",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 27,
+          "actorStatus": "complete",
+          "durationMs": 81279,
+          "actorBundleSha256": "daf02dc48d8e8b1db6c23a16e322593fe01360ef806fb45ef5b75626387250a1",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 66,
+          "actorStatus": "error",
+          "durationMs": 33711,
+          "actorBundleSha256": "daf02dc48d8e8b1db6c23a16e322593fe01360ef806fb45ef5b75626387250a1",
+          "officialStatus": "failure",
+          "officialScore": 0.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 399,
+          "actorStatus": "error",
+          "durationMs": 24010,
+          "actorBundleSha256": "daf02dc48d8e8b1db6c23a16e322593fe01360ef806fb45ef5b75626387250a1",
+          "officialStatus": "failure",
+          "officialScore": 0.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        }
+      ]
+    },
+    {
+      "attempt": "fix-004",
+      "kind": "development",
+      "startedAt": "2026-09-23T18:58:42.678Z",
+      "finishedAt": "2026-09-23T19:07:21.834Z",
+      "taskIds": [
+        0,
+        11,
+        41,
+        27,
+        66,
+        399,
+        21,
+        47,
+        96,
+        44,
+        45,
+        102
+      ],
+      "upstreamCommit": "6473f72db5dcefc97b5725b59e734504edc28a21",
+      "plannedTasks": 12,
+      "officiallyScoredTasks": 12,
+      "officialPasses": 7,
+      "completeScore": true,
+      "sourceDriftDetected": false,
+      "hostInterruptionCount": 0,
+      "tasks": [
+        {
+          "taskId": 0,
+          "actorStatus": "complete",
+          "durationMs": 53222,
+          "actorBundleSha256": "55351f9ffc44dbdf9a53e76d7154312adab4ee7c3068da0bd63580e9be51a12e",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 11,
+          "actorStatus": "complete",
+          "durationMs": 26580,
+          "actorBundleSha256": "55351f9ffc44dbdf9a53e76d7154312adab4ee7c3068da0bd63580e9be51a12e",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 41,
+          "actorStatus": "complete",
+          "durationMs": 8987,
+          "actorBundleSha256": "55351f9ffc44dbdf9a53e76d7154312adab4ee7c3068da0bd63580e9be51a12e",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 27,
+          "actorStatus": "error",
+          "durationMs": 53122,
+          "actorBundleSha256": "55351f9ffc44dbdf9a53e76d7154312adab4ee7c3068da0bd63580e9be51a12e",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 66,
+          "actorStatus": "complete",
+          "durationMs": 56683,
+          "actorBundleSha256": "55351f9ffc44dbdf9a53e76d7154312adab4ee7c3068da0bd63580e9be51a12e",
+          "officialStatus": "failure",
+          "officialScore": 0.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 399,
+          "actorStatus": "complete",
+          "durationMs": 26321,
+          "actorBundleSha256": "55351f9ffc44dbdf9a53e76d7154312adab4ee7c3068da0bd63580e9be51a12e",
+          "officialStatus": "failure",
+          "officialScore": 0.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 21,
+          "actorStatus": "complete",
+          "durationMs": 38241,
+          "actorBundleSha256": "55351f9ffc44dbdf9a53e76d7154312adab4ee7c3068da0bd63580e9be51a12e",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 47,
+          "actorStatus": "complete",
+          "durationMs": 116140,
+          "actorBundleSha256": "55351f9ffc44dbdf9a53e76d7154312adab4ee7c3068da0bd63580e9be51a12e",
+          "officialStatus": "failure",
+          "officialScore": 0.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 96,
+          "actorStatus": "complete",
+          "durationMs": 34764,
+          "actorBundleSha256": "55351f9ffc44dbdf9a53e76d7154312adab4ee7c3068da0bd63580e9be51a12e",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 44,
+          "actorStatus": "complete",
+          "durationMs": 22343,
+          "actorBundleSha256": "55351f9ffc44dbdf9a53e76d7154312adab4ee7c3068da0bd63580e9be51a12e",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 45,
+          "actorStatus": "complete",
+          "durationMs": 21089,
+          "actorBundleSha256": "55351f9ffc44dbdf9a53e76d7154312adab4ee7c3068da0bd63580e9be51a12e",
+          "officialStatus": "failure",
+          "officialScore": 0.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 102,
+          "actorStatus": "complete",
+          "durationMs": 23384,
+          "actorBundleSha256": "55351f9ffc44dbdf9a53e76d7154312adab4ee7c3068da0bd63580e9be51a12e",
+          "officialStatus": "failure",
+          "officialScore": 0.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        }
+      ]
+    },
+    {
+      "attempt": "fix-005",
+      "kind": "development",
+      "startedAt": "2026-09-23T19:20:38.232Z",
+      "finishedAt": "2026-09-23T19:32:04.982Z",
+      "taskIds": [
+        0,
+        11,
+        41,
+        27,
+        66,
+        399,
+        21,
+        47,
+        96,
+        44,
+        45,
+        102
+      ],
+      "upstreamCommit": "6473f72db5dcefc97b5725b59e734504edc28a21",
+      "plannedTasks": 12,
+      "officiallyScoredTasks": 12,
+      "officialPasses": 7,
+      "completeScore": true,
+      "sourceDriftDetected": false,
+      "hostInterruptionCount": 0,
+      "tasks": [
+        {
+          "taskId": 0,
+          "actorStatus": "complete",
+          "durationMs": 51718,
+          "actorBundleSha256": "82ad7990cff6687b10e75343add8818596f685dd7e407431fb8b343ee8015392",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 11,
+          "actorStatus": "complete",
+          "durationMs": 39106,
+          "actorBundleSha256": "82ad7990cff6687b10e75343add8818596f685dd7e407431fb8b343ee8015392",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 41,
+          "actorStatus": "complete",
+          "durationMs": 10389,
+          "actorBundleSha256": "82ad7990cff6687b10e75343add8818596f685dd7e407431fb8b343ee8015392",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 27,
+          "actorStatus": "complete",
+          "durationMs": 54749,
+          "actorBundleSha256": "82ad7990cff6687b10e75343add8818596f685dd7e407431fb8b343ee8015392",
+          "officialStatus": "failure",
+          "officialScore": 0.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 66,
+          "actorStatus": "running",
+          "durationMs": 240151,
+          "actorBundleSha256": "82ad7990cff6687b10e75343add8818596f685dd7e407431fb8b343ee8015392",
+          "officialStatus": "failure",
+          "officialScore": 0.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 399,
+          "actorStatus": "error",
+          "durationMs": 25835,
+          "actorBundleSha256": "82ad7990cff6687b10e75343add8818596f685dd7e407431fb8b343ee8015392",
+          "officialStatus": "failure",
+          "officialScore": 0.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 21,
+          "actorStatus": "complete",
+          "durationMs": 58384,
+          "actorBundleSha256": "82ad7990cff6687b10e75343add8818596f685dd7e407431fb8b343ee8015392",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 47,
+          "actorStatus": "complete",
+          "durationMs": 27763,
+          "actorBundleSha256": "82ad7990cff6687b10e75343add8818596f685dd7e407431fb8b343ee8015392",
+          "officialStatus": "failure",
+          "officialScore": 0.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 96,
+          "actorStatus": "complete",
+          "durationMs": 69468,
+          "actorBundleSha256": "82ad7990cff6687b10e75343add8818596f685dd7e407431fb8b343ee8015392",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 44,
+          "actorStatus": "complete",
+          "durationMs": 19124,
+          "actorBundleSha256": "82ad7990cff6687b10e75343add8818596f685dd7e407431fb8b343ee8015392",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 45,
+          "actorStatus": "complete",
+          "durationMs": 23213,
+          "actorBundleSha256": "82ad7990cff6687b10e75343add8818596f685dd7e407431fb8b343ee8015392",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 102,
+          "actorStatus": "complete",
+          "durationMs": 21529,
+          "actorBundleSha256": "82ad7990cff6687b10e75343add8818596f685dd7e407431fb8b343ee8015392",
+          "officialStatus": "failure",
+          "officialScore": 0.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        }
+      ],
+      "timing": {
+        "actorTotalMs": 641429,
+        "actorMedianMs": 39106,
+        "jevRequestMedianMs": 2015
+      }
+    },
+    {
+      "attempt": "speed-001",
+      "kind": "development",
+      "startedAt": "2026-09-23T20:08:41.555Z",
+      "finishedAt": "2026-09-23T20:29:36.369Z",
+      "taskIds": [
+        0,
+        11,
+        41,
+        27,
+        66,
+        399,
+        21,
+        47,
+        96,
+        44,
+        45,
+        102
+      ],
+      "upstreamCommit": "6473f72db5dcefc97b5725b59e734504edc28a21",
+      "plannedTasks": 12,
+      "officiallyScoredTasks": 12,
+      "officialPasses": 9,
+      "completeScore": true,
+      "sourceDriftDetected": false,
+      "hostInterruptionCount": 0,
+      "tasks": [
+        {
+          "taskId": 0,
+          "actorStatus": "complete",
+          "durationMs": 58663,
+          "actorBundleSha256": "9dbe8886473d789163d32679f350458dff254c15c140c848376670c3d7ef1b5c",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 11,
+          "actorStatus": "complete",
+          "durationMs": 28770,
+          "actorBundleSha256": "9dbe8886473d789163d32679f350458dff254c15c140c848376670c3d7ef1b5c",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 41,
+          "actorStatus": "complete",
+          "durationMs": 6517,
+          "actorBundleSha256": "9dbe8886473d789163d32679f350458dff254c15c140c848376670c3d7ef1b5c",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 27,
+          "actorStatus": "complete",
+          "durationMs": 91859,
+          "actorBundleSha256": "9dbe8886473d789163d32679f350458dff254c15c140c848376670c3d7ef1b5c",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 66,
+          "actorStatus": "complete",
+          "durationMs": 171279,
+          "actorBundleSha256": "9dbe8886473d789163d32679f350458dff254c15c140c848376670c3d7ef1b5c",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 399,
+          "actorStatus": "complete",
+          "durationMs": 29391,
+          "actorBundleSha256": "9dbe8886473d789163d32679f350458dff254c15c140c848376670c3d7ef1b5c",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 21,
+          "actorStatus": "running",
+          "durationMs": 240114,
+          "actorBundleSha256": "9dbe8886473d789163d32679f350458dff254c15c140c848376670c3d7ef1b5c",
+          "officialStatus": "failure",
+          "officialScore": 0.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 47,
+          "actorStatus": "complete",
+          "durationMs": 112746,
+          "actorBundleSha256": "9dbe8886473d789163d32679f350458dff254c15c140c848376670c3d7ef1b5c",
+          "officialStatus": "failure",
+          "officialScore": 0.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 96,
+          "actorStatus": "error",
+          "durationMs": 162276,
+          "actorBundleSha256": "9dbe8886473d789163d32679f350458dff254c15c140c848376670c3d7ef1b5c",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 44,
+          "actorStatus": "complete",
+          "durationMs": 9533,
+          "actorBundleSha256": "9dbe8886473d789163d32679f350458dff254c15c140c848376670c3d7ef1b5c",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 45,
+          "actorStatus": "complete",
+          "durationMs": 186784,
+          "actorBundleSha256": "9dbe8886473d789163d32679f350458dff254c15c140c848376670c3d7ef1b5c",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 102,
+          "actorStatus": "complete",
+          "durationMs": 111366,
+          "actorBundleSha256": "9dbe8886473d789163d32679f350458dff254c15c140c848376670c3d7ef1b5c",
+          "officialStatus": "failure",
+          "officialScore": 0.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        }
+      ],
+      "timing": {
+        "actorTotalMs": 1209298,
+        "actorMedianMs": 111366,
+        "jevRequestMedianMs": 1763
+      }
+    },
+    {
+      "attempt": "speed-002",
+      "kind": "development",
+      "startedAt": "2026-09-23T22:07:18.282Z",
+      "finishedAt": "2026-09-23T22:24:36.794Z",
+      "taskIds": [
+        0,
+        11,
+        41,
+        27,
+        66,
+        399,
+        21,
+        47,
+        96,
+        44,
+        45,
+        102
+      ],
+      "upstreamCommit": "6473f72db5dcefc97b5725b59e734504edc28a21",
+      "plannedTasks": 12,
+      "officiallyScoredTasks": 0,
+      "officialPasses": 0,
+      "completeScore": false,
+      "sourceDriftDetected": true,
+      "hostInterruptionCount": 0,
+      "tasks": [
+        {
+          "taskId": 0,
+          "actorStatus": "complete",
+          "durationMs": 58079,
+          "actorBundleSha256": "b682eb4c8ef4599b70578b77eada25e82cca2ac12cbc9b8cf9a6462c3ffac94e",
+          "officialStatus": null,
+          "officialScore": null,
+          "evaluatorVersion": null,
+          "evaluatorChecksum": null
+        },
+        {
+          "taskId": 11,
+          "actorStatus": "runner-error",
+          "durationMs": null,
+          "actorBundleSha256": "b682eb4c8ef4599b70578b77eada25e82cca2ac12cbc9b8cf9a6462c3ffac94e",
+          "officialStatus": null,
+          "officialScore": null,
+          "evaluatorVersion": null,
+          "evaluatorChecksum": null
+        },
+        {
+          "taskId": 41,
+          "actorStatus": "complete",
+          "durationMs": 47797,
+          "actorBundleSha256": "b682eb4c8ef4599b70578b77eada25e82cca2ac12cbc9b8cf9a6462c3ffac94e",
+          "officialStatus": null,
+          "officialScore": null,
+          "evaluatorVersion": null,
+          "evaluatorChecksum": null
+        },
+        {
+          "taskId": 27,
+          "actorStatus": "complete",
+          "durationMs": 86989,
+          "actorBundleSha256": "b682eb4c8ef4599b70578b77eada25e82cca2ac12cbc9b8cf9a6462c3ffac94e",
+          "officialStatus": null,
+          "officialScore": null,
+          "evaluatorVersion": null,
+          "evaluatorChecksum": null
+        },
+        {
+          "taskId": 66,
+          "actorStatus": "complete",
+          "durationMs": 83321,
+          "actorBundleSha256": "b682eb4c8ef4599b70578b77eada25e82cca2ac12cbc9b8cf9a6462c3ffac94e",
+          "officialStatus": null,
+          "officialScore": null,
+          "evaluatorVersion": null,
+          "evaluatorChecksum": null
+        },
+        {
+          "taskId": 399,
+          "actorStatus": "complete",
+          "durationMs": 27921,
+          "actorBundleSha256": "b682eb4c8ef4599b70578b77eada25e82cca2ac12cbc9b8cf9a6462c3ffac94e",
+          "officialStatus": null,
+          "officialScore": null,
+          "evaluatorVersion": null,
+          "evaluatorChecksum": null
+        },
+        {
+          "taskId": 21,
+          "actorStatus": "complete",
+          "durationMs": 58072,
+          "actorBundleSha256": "b682eb4c8ef4599b70578b77eada25e82cca2ac12cbc9b8cf9a6462c3ffac94e",
+          "officialStatus": null,
+          "officialScore": null,
+          "evaluatorVersion": null,
+          "evaluatorChecksum": null
+        },
+        {
+          "taskId": 47,
+          "actorStatus": "complete",
+          "durationMs": 87172,
+          "actorBundleSha256": "b682eb4c8ef4599b70578b77eada25e82cca2ac12cbc9b8cf9a6462c3ffac94e",
+          "officialStatus": null,
+          "officialScore": null,
+          "evaluatorVersion": null,
+          "evaluatorChecksum": null
+        },
+        {
+          "taskId": 96,
+          "actorStatus": "complete",
+          "durationMs": 46000,
+          "actorBundleSha256": "b682eb4c8ef4599b70578b77eada25e82cca2ac12cbc9b8cf9a6462c3ffac94e",
+          "officialStatus": null,
+          "officialScore": null,
+          "evaluatorVersion": null,
+          "evaluatorChecksum": null
+        },
+        {
+          "taskId": 44,
+          "actorStatus": "complete",
+          "durationMs": 14284,
+          "actorBundleSha256": "b682eb4c8ef4599b70578b77eada25e82cca2ac12cbc9b8cf9a6462c3ffac94e",
+          "officialStatus": null,
+          "officialScore": null,
+          "evaluatorVersion": null,
+          "evaluatorChecksum": null
+        },
+        {
+          "taskId": 45,
+          "actorStatus": "complete",
+          "durationMs": 23971,
+          "actorBundleSha256": "b682eb4c8ef4599b70578b77eada25e82cca2ac12cbc9b8cf9a6462c3ffac94e",
+          "officialStatus": null,
+          "officialScore": null,
+          "evaluatorVersion": null,
+          "evaluatorChecksum": null
+        },
+        {
+          "taskId": 102,
+          "actorStatus": "complete",
+          "durationMs": 84406,
+          "actorBundleSha256": "b682eb4c8ef4599b70578b77eada25e82cca2ac12cbc9b8cf9a6462c3ffac94e",
+          "officialStatus": null,
+          "officialScore": null,
+          "evaluatorVersion": null,
+          "evaluatorChecksum": null
+        }
+      ]
+    },
+    {
+      "attempt": "speed-003",
+      "kind": "development",
+      "startedAt": "2026-09-23T22:13:33.696Z",
+      "finishedAt": "2026-09-23T22:34:12.100Z",
+      "taskIds": [
+        0,
+        11,
+        41,
+        27,
+        66,
+        399,
+        21,
+        47,
+        96,
+        44,
+        45,
+        102
+      ],
+      "upstreamCommit": "6473f72db5dcefc97b5725b59e734504edc28a21",
+      "plannedTasks": 12,
+      "officiallyScoredTasks": 12,
+      "officialPasses": 7,
+      "completeScore": true,
+      "sourceDriftDetected": false,
+      "hostInterruptionCount": 0,
+      "tasks": [
+        {
+          "taskId": 0,
+          "actorStatus": "error",
+          "durationMs": 131164,
+          "actorBundleSha256": "b682eb4c8ef4599b70578b77eada25e82cca2ac12cbc9b8cf9a6462c3ffac94e",
+          "officialStatus": "failure",
+          "officialScore": 0.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 11,
+          "actorStatus": "complete",
+          "durationMs": 26365,
+          "actorBundleSha256": "b682eb4c8ef4599b70578b77eada25e82cca2ac12cbc9b8cf9a6462c3ffac94e",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 41,
+          "actorStatus": "complete",
+          "durationMs": 7888,
+          "actorBundleSha256": "b682eb4c8ef4599b70578b77eada25e82cca2ac12cbc9b8cf9a6462c3ffac94e",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 27,
+          "actorStatus": "complete",
+          "durationMs": 57825,
+          "actorBundleSha256": "b682eb4c8ef4599b70578b77eada25e82cca2ac12cbc9b8cf9a6462c3ffac94e",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 66,
+          "actorStatus": "complete",
+          "durationMs": 91483,
+          "actorBundleSha256": "b682eb4c8ef4599b70578b77eada25e82cca2ac12cbc9b8cf9a6462c3ffac94e",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 399,
+          "actorStatus": "error",
+          "durationMs": 19770,
+          "actorBundleSha256": "b682eb4c8ef4599b70578b77eada25e82cca2ac12cbc9b8cf9a6462c3ffac94e",
+          "officialStatus": "failure",
+          "officialScore": 0.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 21,
+          "actorStatus": "complete",
+          "durationMs": 80092,
+          "actorBundleSha256": "b682eb4c8ef4599b70578b77eada25e82cca2ac12cbc9b8cf9a6462c3ffac94e",
+          "officialStatus": "failure",
+          "officialScore": 0.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 47,
+          "actorStatus": "complete",
+          "durationMs": 91583,
+          "actorBundleSha256": "b682eb4c8ef4599b70578b77eada25e82cca2ac12cbc9b8cf9a6462c3ffac94e",
+          "officialStatus": "failure",
+          "officialScore": 0.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 96,
+          "actorStatus": "error",
+          "durationMs": 54722,
+          "actorBundleSha256": "b682eb4c8ef4599b70578b77eada25e82cca2ac12cbc9b8cf9a6462c3ffac94e",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 44,
+          "actorStatus": "complete",
+          "durationMs": 9573,
+          "actorBundleSha256": "b682eb4c8ef4599b70578b77eada25e82cca2ac12cbc9b8cf9a6462c3ffac94e",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 45,
+          "actorStatus": "complete",
+          "durationMs": 27096,
+          "actorBundleSha256": "b682eb4c8ef4599b70578b77eada25e82cca2ac12cbc9b8cf9a6462c3ffac94e",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 102,
+          "actorStatus": "complete",
+          "durationMs": 79723,
+          "actorBundleSha256": "b682eb4c8ef4599b70578b77eada25e82cca2ac12cbc9b8cf9a6462c3ffac94e",
+          "officialStatus": "failure",
+          "officialScore": 0.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        }
+      ],
+      "timing": {
+        "actorTotalMs": 677284,
+        "actorMedianMs": 57825,
+        "jevRequestMedianMs": 494
+      }
+    },
+    {
+      "attempt": "speed-004",
+      "kind": "development",
+      "startedAt": "2026-09-23T22:47:33.763Z",
+      "finishedAt": "2026-09-24T00:21:48.236Z",
+      "taskIds": [
+        0,
+        11,
+        41,
+        27,
+        66,
+        399,
+        21,
+        47,
+        96,
+        44,
+        45,
+        102
+      ],
+      "upstreamCommit": "6473f72db5dcefc97b5725b59e734504edc28a21",
+      "plannedTasks": 12,
+      "officiallyScoredTasks": 7,
+      "officialPasses": 5,
+      "completeScore": false,
+      "sourceDriftDetected": false,
+      "hostInterruptionCount": 0,
+      "tasks": [
+        {
+          "taskId": 0,
+          "actorStatus": "stopped",
+          "durationMs": 2459,
+          "actorBundleSha256": "834eab7d5f12c82dc79d88b56ecdf2b416440381653106a5853a6b73afd010c2",
+          "officialStatus": "failure",
+          "officialScore": 0.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 11,
+          "actorStatus": "complete",
+          "durationMs": 23852,
+          "actorBundleSha256": "834eab7d5f12c82dc79d88b56ecdf2b416440381653106a5853a6b73afd010c2",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 41,
+          "actorStatus": "complete",
+          "durationMs": 7698,
+          "actorBundleSha256": "834eab7d5f12c82dc79d88b56ecdf2b416440381653106a5853a6b73afd010c2",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 27,
+          "actorStatus": "complete",
+          "durationMs": 76719,
+          "actorBundleSha256": "834eab7d5f12c82dc79d88b56ecdf2b416440381653106a5853a6b73afd010c2",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 66,
+          "actorStatus": "complete",
+          "durationMs": 114118,
+          "actorBundleSha256": "834eab7d5f12c82dc79d88b56ecdf2b416440381653106a5853a6b73afd010c2",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 399,
+          "actorStatus": "complete",
+          "durationMs": 26219,
+          "actorBundleSha256": "834eab7d5f12c82dc79d88b56ecdf2b416440381653106a5853a6b73afd010c2",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 21,
+          "actorStatus": "runner-error",
+          "durationMs": null,
+          "actorBundleSha256": "834eab7d5f12c82dc79d88b56ecdf2b416440381653106a5853a6b73afd010c2",
+          "officialStatus": null,
+          "officialScore": null,
+          "evaluatorVersion": null,
+          "evaluatorChecksum": null
+        },
+        {
+          "taskId": 47,
+          "actorStatus": "streaming",
+          "durationMs": 1048912,
+          "actorBundleSha256": "834eab7d5f12c82dc79d88b56ecdf2b416440381653106a5853a6b73afd010c2",
+          "officialStatus": "failure",
+          "officialScore": 0.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 96,
+          "actorStatus": "runner-error",
+          "durationMs": null,
+          "actorBundleSha256": null,
+          "officialStatus": null,
+          "officialScore": null,
+          "evaluatorVersion": null,
+          "evaluatorChecksum": null
+        },
+        {
+          "taskId": 44,
+          "actorStatus": "runner-error",
+          "durationMs": null,
+          "actorBundleSha256": null,
+          "officialStatus": null,
+          "officialScore": null,
+          "evaluatorVersion": null,
+          "evaluatorChecksum": null
+        },
+        {
+          "taskId": 45,
+          "actorStatus": "runner-error",
+          "durationMs": null,
+          "actorBundleSha256": null,
+          "officialStatus": null,
+          "officialScore": null,
+          "evaluatorVersion": null,
+          "evaluatorChecksum": null
+        },
+        {
+          "taskId": 102,
+          "actorStatus": "runner-error",
+          "durationMs": null,
+          "actorBundleSha256": null,
+          "officialStatus": null,
+          "officialScore": null,
+          "evaluatorVersion": null,
+          "evaluatorChecksum": null
+        }
+      ]
+    },
+    {
+      "attempt": "speed-005",
+      "kind": "development",
+      "startedAt": "2026-09-24T07:02:09.831Z",
+      "finishedAt": "2026-09-24T07:19:50.534Z",
+      "taskIds": [
+        0,
+        11,
+        41,
+        27,
+        66,
+        399,
+        21,
+        47,
+        96,
+        44,
+        45,
+        102
+      ],
+      "upstreamCommit": "6473f72db5dcefc97b5725b59e734504edc28a21",
+      "plannedTasks": 12,
+      "officiallyScoredTasks": 12,
+      "officialPasses": 7,
+      "completeScore": true,
+      "sourceDriftDetected": false,
+      "hostInterruptionCount": 0,
+      "tasks": [
+        {
+          "taskId": 0,
+          "actorStatus": "complete",
+          "durationMs": 12455,
+          "actorBundleSha256": "e498933aa6937802e7879c9805f8268206ccde8ec4c091ca2ea1a482fed6808e",
+          "officialStatus": "failure",
+          "officialScore": 0.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 11,
+          "actorStatus": "complete",
+          "durationMs": 23367,
+          "actorBundleSha256": "e498933aa6937802e7879c9805f8268206ccde8ec4c091ca2ea1a482fed6808e",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 41,
+          "actorStatus": "complete",
+          "durationMs": 7526,
+          "actorBundleSha256": "e498933aa6937802e7879c9805f8268206ccde8ec4c091ca2ea1a482fed6808e",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 27,
+          "actorStatus": "complete",
+          "durationMs": 73765,
+          "actorBundleSha256": "e498933aa6937802e7879c9805f8268206ccde8ec4c091ca2ea1a482fed6808e",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 66,
+          "actorStatus": "complete",
+          "durationMs": 136153,
+          "actorBundleSha256": "e498933aa6937802e7879c9805f8268206ccde8ec4c091ca2ea1a482fed6808e",
+          "officialStatus": "failure",
+          "officialScore": 0.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 399,
+          "actorStatus": "complete",
+          "durationMs": 21033,
+          "actorBundleSha256": "e498933aa6937802e7879c9805f8268206ccde8ec4c091ca2ea1a482fed6808e",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 21,
+          "actorStatus": "complete",
+          "durationMs": 17206,
+          "actorBundleSha256": "e498933aa6937802e7879c9805f8268206ccde8ec4c091ca2ea1a482fed6808e",
+          "officialStatus": "failure",
+          "officialScore": 0.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 47,
+          "actorStatus": "complete",
+          "durationMs": 74639,
+          "actorBundleSha256": "e498933aa6937802e7879c9805f8268206ccde8ec4c091ca2ea1a482fed6808e",
+          "officialStatus": "failure",
+          "officialScore": 0.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 96,
+          "actorStatus": "complete",
+          "durationMs": 43280,
+          "actorBundleSha256": "e498933aa6937802e7879c9805f8268206ccde8ec4c091ca2ea1a482fed6808e",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 44,
+          "actorStatus": "complete",
+          "durationMs": 9371,
+          "actorBundleSha256": "e498933aa6937802e7879c9805f8268206ccde8ec4c091ca2ea1a482fed6808e",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 45,
+          "actorStatus": "complete",
+          "durationMs": 12366,
+          "actorBundleSha256": "e498933aa6937802e7879c9805f8268206ccde8ec4c091ca2ea1a482fed6808e",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 102,
+          "actorStatus": "complete",
+          "durationMs": 25546,
+          "actorBundleSha256": "e498933aa6937802e7879c9805f8268206ccde8ec4c091ca2ea1a482fed6808e",
+          "officialStatus": "failure",
+          "officialScore": 0.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        }
+      ],
+      "timing": {
+        "actorTotalMs": 456707,
+        "actorMedianMs": 23367,
+        "jevRequestMedianMs": 443
+      }
+    },
+    {
+      "attempt": "speed-006",
+      "kind": "development",
+      "startedAt": "2026-09-24T07:33:44.990Z",
+      "finishedAt": "2026-09-24T07:52:05.951Z",
+      "taskIds": [
+        0,
+        11,
+        41,
+        27,
+        66,
+        399,
+        21,
+        47,
+        96,
+        44,
+        45,
+        102
+      ],
+      "upstreamCommit": "6473f72db5dcefc97b5725b59e734504edc28a21",
+      "plannedTasks": 12,
+      "officiallyScoredTasks": 12,
+      "officialPasses": 10,
+      "completeScore": true,
+      "sourceDriftDetected": false,
+      "hostInterruptionCount": 0,
+      "tasks": [
+        {
+          "taskId": 0,
+          "actorStatus": "complete",
+          "durationMs": 65414,
+          "actorBundleSha256": "0680ed862e6f8765566101a1f22b559afa437b650b67034c941c7b613cee673e",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 11,
+          "actorStatus": "complete",
+          "durationMs": 28999,
+          "actorBundleSha256": "0680ed862e6f8765566101a1f22b559afa437b650b67034c941c7b613cee673e",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 41,
+          "actorStatus": "complete",
+          "durationMs": 7282,
+          "actorBundleSha256": "0680ed862e6f8765566101a1f22b559afa437b650b67034c941c7b613cee673e",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 27,
+          "actorStatus": "complete",
+          "durationMs": 32148,
+          "actorBundleSha256": "0680ed862e6f8765566101a1f22b559afa437b650b67034c941c7b613cee673e",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 66,
+          "actorStatus": "complete",
+          "durationMs": 139744,
+          "actorBundleSha256": "0680ed862e6f8765566101a1f22b559afa437b650b67034c941c7b613cee673e",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 399,
+          "actorStatus": "complete",
+          "durationMs": 19670,
+          "actorBundleSha256": "0680ed862e6f8765566101a1f22b559afa437b650b67034c941c7b613cee673e",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 21,
+          "actorStatus": "complete",
+          "durationMs": 46322,
+          "actorBundleSha256": "0680ed862e6f8765566101a1f22b559afa437b650b67034c941c7b613cee673e",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 47,
+          "actorStatus": "complete",
+          "durationMs": 54067,
+          "actorBundleSha256": "0680ed862e6f8765566101a1f22b559afa437b650b67034c941c7b613cee673e",
+          "officialStatus": "failure",
+          "officialScore": 0.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 96,
+          "actorStatus": "complete",
+          "durationMs": 40175,
+          "actorBundleSha256": "0680ed862e6f8765566101a1f22b559afa437b650b67034c941c7b613cee673e",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 44,
+          "actorStatus": "complete",
+          "durationMs": 11942,
+          "actorBundleSha256": "0680ed862e6f8765566101a1f22b559afa437b650b67034c941c7b613cee673e",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 45,
+          "actorStatus": "complete",
+          "durationMs": 44169,
+          "actorBundleSha256": "0680ed862e6f8765566101a1f22b559afa437b650b67034c941c7b613cee673e",
+          "officialStatus": "success",
+          "officialScore": 1.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        },
+        {
+          "taskId": 102,
+          "actorStatus": "complete",
+          "durationMs": 52899,
+          "actorBundleSha256": "0680ed862e6f8765566101a1f22b559afa437b650b67034c941c7b613cee673e",
+          "officialStatus": "failure",
+          "officialScore": 0.0,
+          "evaluatorVersion": "1.2.3",
+          "evaluatorChecksum": "35c3385b1db4b3378657589f95f50defd4234bd36e5b93d44733fd561b01db4e"
+        }
+      ],
+      "timing": {
+        "actorTotalMs": 542831,
+        "actorMedianMs": 44169,
+        "jevRequestMedianMs": 392
+      }
+    }
+  ]
+}

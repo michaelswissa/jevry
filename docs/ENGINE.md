@@ -4,6 +4,12 @@ The engine is a TypeScript/Electron adaptation of the small loop in [Jev Ultrafa
 
 `desktop/snapshot.ts` directly adapts Browser Use's MIT-licensed `snapshot.js`; the module preserves the license. `desktop/engine.ts` ports its action indexing, speculative operation/target question construction, strict probability validation, freshness checks, and text-helper handoff. Firecrawl's streaming worker model and ego-lite's observed-reference/CDP architecture inform the structure, but neither runtime is bundled into this engine. Their cloned repositories and licenses remain available under `upstream/`.
 
+## Current action-schema routing
+
+The current ordinary-page loop first tries `desktop/jev-web-actions.ts`: it compiles eligible operation/target pairs into a single `web_action` Choice, preserving companion literal questions. It permits at most 240 complete alternatives and falls back to the operation/target fan-out schema when the page or choice structure is unsuitable. Game decisions retain the separate game schema. Both paths resolve only actions from the original observed action map.
+
+See [Jev decision architecture](JEV_ARCHITECTURE.md) for a worked example, independent-question semantics, and the distinction between a valid model decision and verified task success. The protocol section below describes the retained fan-out path; it is not the only ordinary-page schema.
+
 ## Actual model protocol
 
 Jev uses `POST https://api.typesafe.ai/v1/systemone`, authenticated with a TypeSafe API key, with `model: "jev-latest"` by default. It is **not** an OpenAI Chat Completions endpoint. One request contains structured page state and all currently supported operation-specific target questions. Only the target head belonging to the chosen operation can execute. Probabilities must cover exactly the offered choices, be finite and normalized, and select a maximal-probability choice.
