@@ -1,7 +1,7 @@
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="public/brand/lockup-porcelain.svg">
-    <img src="public/brand/lockup-ink.svg" alt="Jevry" width="220">
+    <source media="(prefers-color-scheme: dark)" srcset="docs/media/jevry-lockup-porcelain.svg">
+    <img src="docs/media/jevry-lockup-ink.svg" alt="Jevry" width="220">
   </picture>
 </p>
 
@@ -30,15 +30,22 @@ Browse normally, hand over a task, watch each action, and redirect when needed. 
 
 ## See it in action
 
-[![Real-time preview: Jevry makes the final moves and wins 2048](docs/media/2048-demo.gif)](https://github.com/michaelswissa/jevry/releases/download/v0.4.0-beta.13/jevry-2048-realtime.mp4)
+![Latest Jevry workspace with the full chrome J artwork, updated conversation sidebar, and browser navigation](docs/media/workspace-latest.png)
+
+*Latest desktop design, captured from the local September 24 build.*
+
+<details>
+<summary><strong>Watch Jevry win 2048 — recorded with the earlier interface</strong></summary>
+
+[![Historical real-time game excerpt: Jevry makes the final moves and wins 2048](docs/media/2048-demo.gif)](https://github.com/michaelswissa/jevry/releases/download/v0.4.0-beta.13/jevry-2048-realtime.mp4)
 
 **“Play this game and win it.”** The page reaches a **2048 tile**, displays **You Win**, and reports **20,708 points in 1,013 moves, with no powerups used**.
 
 [Watch the 30-second real-time clip](https://github.com/michaelswissa/jevry/releases/download/v0.4.0-beta.13/jevry-2048-realtime.mp4) · [Recording and edit details](docs/launch/DEMO.md)
 
-The clip is an uninterrupted 1× excerpt from a September 23 run and shows the earlier interface. The GIF is a shorter crop. It is separate from the instrumented latency study below.
+The clip is an uninterrupted 1× excerpt from a September 23 run and shows the earlier interface. The GIF is a shorter crop focused on the game. The footage is preserved as recorded evidence and is separate from the instrumented latency study below.
 
-![Jevry desktop workspace with conversation, browser tabs, and native page area](docs/brand/workspace-desktop.png)
+</details>
 
 ## Why Jev?
 
@@ -74,6 +81,10 @@ npm run dev
 This opens the **Electron desktop app**. Keep the terminal running during development. `npm run dev:web` previews only the interface; browser control requires the desktop app.
 
 ### 2. Connect your models
+
+![Latest Jevry setup screen with the chrome J artwork and Codex, Claude Code, and API-key connection choices](docs/media/setup-latest.png)
+
+*Connection setup in the latest desktop design.*
 
 You need **both** connections; provider usage may incur charges.
 
