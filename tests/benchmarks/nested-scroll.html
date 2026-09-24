@@ -1,0 +1,4 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Nested destination results</title></head><body>
+<h1>Destinations</h1><section aria-label="Destination results" style="height:160px;width:420px;overflow-y:auto;border:1px solid"></section><p id="result">Select a destination</p>
+<script>window.benchmarkReceipts={open:0};const panel=document.querySelector('section');for(let i=1;i<=12;i++){const button=document.createElement('button');button.style='display:block;height:48px;width:100%';button.textContent='Destination '+i;button.onclick=()=>{window.benchmarkReceipts.open++;document.querySelector('#result').textContent='Opened destination '+i;};panel.append(button);}</script>
+</body></html>

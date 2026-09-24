@@ -1,0 +1,33 @@
+# Public snapshot and publication record
+
+Prepared September 24, 2026. Public repository: https://github.com/michaelswissa/jevry
+
+## What is published
+
+A fresh source snapshot including the current working-tree UI/brand changes, source code, tests, pinned dependency lockfile, third-party notices, an MIT license for original code, documentation, and selected public demo assets. Private development history is retained locally and is not pushed.
+
+The original developer checkout and beta.4 packaged app remain intact. The public snapshot uses current-user home resolution in four opt-in macOS live-test harnesses instead of the developer's absolute home path. No game-control logic was changed for the launch.
+
+## Exclusions
+
+No `.env` files, connection archives, browser profiles, cookies, user conversations, local logs, private raw benchmark artifacts, upstream clones, dependency directories, generated build directories, or existing installers are published. Historical reports retain descriptions of failed and interrupted attempts; links to private local artifacts are rendered as clearly labeled local references instead of broken public download links.
+
+Public benchmark fixture credentials in the WebArena localhost configuration are synthetic fixture defaults, not personal service credentials. Example credential-bearing URLs in tests are deliberate negative test cases.
+
+## Security checks
+
+Gitleaks inspected 15 local historical commits. One generic-key detection was an ordinary sentence about unverified API inference and Firecrawl/Ego comparisons, not a secret. The public snapshot rewrites that sentence to remove scanner ambiguity. A fresh Gitleaks directory scan found no leaks. This is a scoped automated scan plus manual review, not an absolute guarantee that no security issue exists.
+
+Selected published screenshots and the video framing were visually reviewed. The supplied original full-screen recording stays private.
+
+## Launch destinations
+
+GitHub repository and a source-preview release are the primary public destinations. Other channels require a confirmed publication URL before they are listed as posted.
+
+LinkedIn was signed in as Michael Swissa during preparation. X, Hacker News, and Product Hunt showed login requirements. A browser-owned notification prompt subsequently returned browser control to the user; publishing through that browser remains pending until the user resolves it and confirms resumption.
+
+Hacker News requires the founder to write their own submission and comments under its current prohibition on generated/AI-edited text. Ready-to-adapt copy for other channels and a sourced seven-day plan are included in this folder.
+
+## Frozen snapshot checks
+
+`npm ci` completed with zero reported dependency vulnerabilities. `npm test` passed 571 tests with 100 default opt-in skips; `npm run build` passed; `npm run test:engine-browser` passed all 120 selected Chromium checks. The real Electron desktop workflow passed nine checks, and native research passed eight checks. Providers in these acceptance workflows are deterministic local fixtures, not a live quality measurement.

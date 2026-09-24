@@ -1,0 +1,64 @@
+{
+  "version": 1,
+  "purpose": "Common success criteria for future real-provider comparisons. These are a protocol, not results.",
+  "measurement": {
+    "repeatsPerTaskAndProduct": 10,
+    "alternateProductOrder": true,
+    "report": ["successRate", "falseCompletionRate", "medianEndToEndMs", "p95EndToEndMs", "firstVisibleResponseMs", "firstUsefulActionMs", "modelCalls", "inputTokens", "outputTokens", "cost", "recoveryCount"],
+    "start": "User submits first message, including navigation and reasoning",
+    "stop": "Independent checker verifies required outcome and assistant emits final answer",
+    "failures": "Keep failed, timed-out, and interrupted runs in denominator; do not rank speed only on easy survivors",
+    "providers": "Record exact model IDs, CLI/API path, browser/app versions, hardware, region, network, cache state, logged-in state and budgets. Use same task data; identify unavoidable model differences.",
+    "unsupported": "Record unsupported as unsupported, not passed; do not replace competitor services with mocks for live ranking."
+  },
+  "tasks": [
+    {
+      "id": "followup-reference",
+      "messages": ["Find three stays in Lisbon for two people under €150 per night. Give me a numbered comparison.", "Open the second one.", "Does it have free cancellation?", "Actually use Madrid with the same constraints."],
+      "checks": ["Second turn resolves second item from prior assistant response", "Third turn answers from opened stay evidence", "Fourth retains two people and €150 while changing only city", "All four user and assistant messages remain visible after reopening task"],
+      "requires": "Live travel pages or a common deterministic local site accessible to every product; no reservation is submitted"
+    },
+    {
+      "id": "mixed-chat-and-action",
+      "messages": ["Summarize the current article in three sentences.", "What does its second claim mean?", "Find a primary source for that claim and open it in another tab.", "Compare the two tabs."],
+      "checks": ["No navigation for the first two read-only turns", "Reference resolves from prior answer", "Source tab is created and has real supporting content", "Comparison cites both observed sources"],
+      "requires": "A fixed archived or local article and source pair plus reachable search service"
+    },
+    {
+      "id": "form-and-correction",
+      "messages": ["Prepare preferences for Paris, Business cabin, traveler Ada. Add the traveler and review the preferences.", "Change the traveler to Grace and keep everything else."],
+      "checks": ["First result is Paris / business / Ada", "Second result is Paris / business / Grace", "Exactly one add-traveler action", "No duplicate review action within one requested turn"],
+      "requires": "tests/benchmarks/form.html, served on a host all compared browsers can reach"
+    },
+    {
+      "id": "interrupt-and-resume",
+      "messages": ["Fill the preferences form but wait for my traveler name.", "Stop", "The traveler is Ada; continue from here."],
+      "checks": ["No input after stop acknowledgement", "Current fields remain intact", "Resume uses Ada without redoing completed controls", "Task remains in same conversation"],
+      "requires": "Common local form and a controlled delayed response"
+    },
+    {
+      "id": "multi-tab-scope",
+      "messages": ["Compare the prices and cancellation policies in these three tabs.", "Open the cheapest refundable option.", "Ignore the unrelated tab I just opened."],
+      "checks": ["Only authorized source tabs contribute", "Lowest qualifying price follows currency and cancellation constraints", "Correct tab is activated", "Unrelated new tab is excluded"],
+      "requires": "Fixed three comparison pages plus unrelated control page"
+    },
+    {
+      "id": "stale-target-recovery",
+      "messages": ["Complete the preferences form for Paris, Business cabin, traveler Ada."],
+      "checks": ["Replace observed node before first add-traveler input", "Fresh observation occurs before input", "Exactly one add and one review are recorded", "Final fields match goal"],
+      "requires": "tests/benchmarks/form.html with the benchmark's controlled node replacement"
+    },
+    {
+      "id": "complex-control-coverage",
+      "messages": ["Set the destination in the embedded form, choose the custom calendar date, and review the draft."],
+      "checks": ["Same-origin iframe field is handled", "Open shadow-root control is handled", "Keyboard-only combobox is handled", "No false complete if unsupported"],
+      "requires": "Shared iframe/shadow/keyboard widget fixture; support must be measured separately from simple DOM tasks"
+    },
+    {
+      "id": "research-acquisition",
+      "messages": ["Find three official sources about this technical change and explain where they agree or disagree.", "Which source supports the second finding?"],
+      "checks": ["Agent acquires new sources rather than summarizing only pre-open tabs", "Each claim cites observed source evidence", "Follow-up points to the actual second finding", "Missing evidence is stated instead of invented"],
+      "requires": "Frozen topic/source corpus plus same search access or timestamped live web runs"
+    }
+  ]
+}

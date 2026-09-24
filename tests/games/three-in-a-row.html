@@ -1,0 +1,16 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Three in a row</title>
+<style>body{font:18px system-ui;margin:24px;color:#202830;background:#faf8f3}canvas{display:block;border:2px solid #202830;max-width:90vw}button{padding:10px;font:inherit}p{max-width:760px}</style>
+<h1>Three in a row</h1><p>You are X. Click an empty square. Make three Xs in one row, column or diagonal to win. The computer plays O after your move.</p>
+<canvas aria-label="Three in a row board" width="420" height="420" tabindex="0"></canvas><p role="status" id="status">Your turn: X</p><button id="restart">New Game</button>
+<script>
+const canvas=document.querySelector('canvas'),ctx=canvas.getContext('2d'),status=document.querySelector('#status');
+let board=['X','O','','','X','O','','',''],finished=false,moves=0;
+const rotations=Number(new URLSearchParams(location.search).get('seed')||0)%4;
+for(let i=0;i<rotations;i++)board=[board[6],board[3],board[0],board[7],board[4],board[1],board[8],board[5],board[2]];
+function won(b){for(const [a,c,d] of [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]])if(b[a]&&b[a]===b[c]&&b[a]===b[d])return b[a];return b.every(Boolean)?'draw':'';}
+function draw(){ctx.fillStyle='#fff';ctx.fillRect(0,0,420,420);ctx.strokeStyle='#263c4a';ctx.lineWidth=4;for(let i=1;i<3;i++){ctx.beginPath();ctx.moveTo(i*140,0);ctx.lineTo(i*140,420);ctx.moveTo(0,i*140);ctx.lineTo(420,i*140);ctx.stroke();}ctx.font='bold 88px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';board.forEach((v,i)=>{ctx.fillStyle=v==='X'?'#1558b0':'#c93732';ctx.fillText(v,(i%3+.5)*140,(Math.floor(i/3)+.5)*140);});}
+function finish(){const result=won(board);if(result){finished=true;status.textContent=result==='X'?'You win! Three Xs in a row.':result==='O'?'Game over. O wins.':'Draw. Nobody won.';}return finished;}
+function opponent(){const free=board.flatMap((v,i)=>v?[]:[i]);let choice;for(const player of ['O','X']){choice=free.find(i=>{const trial=board.slice();trial[i]=player;return won(trial)===player;});if(choice!==undefined)break;}choice??=free.includes(4)?4:free[0];if(choice!==undefined)board[choice]='O';}
+canvas.addEventListener('click',e=>{if(finished)return;const r=canvas.getBoundingClientRect(),col=Math.floor((e.clientX-r.left)*3/r.width),row=Math.floor((e.clientY-r.top)*3/r.height),i=row*3+col;if(board[i]||i<0||i>=9)return;board[i]='X';moves++;if(!finish()){opponent();finish();}draw();});
+document.querySelector('#restart').onclick=()=>{board=Array(9).fill('');finished=false;moves=0;status.textContent='Your turn: X';draw();};draw();
+</script></html>

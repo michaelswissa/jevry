@@ -1,0 +1,10 @@
+{
+  "environments": {
+    "__SHOPPING_ADMIN__": {"urls": ["http://localhost:7780/admin"], "use_header_login": true, "credentials": {"username": "admin", "password": "admin1234"}},
+    "__SHOPPING__": {"urls": ["http://localhost:7770"], "use_header_login": true, "credentials": {"username": "emma.lopez@gmail.com", "password": "Password.123"}},
+    "__REDDIT__": {"urls": ["http://localhost:9999"], "use_header_login": true, "credentials": {"username": "MarvelsGrantMan136", "password": "test1234"}},
+    "__GITLAB__": {"urls": ["http://localhost:8023"], "use_header_login": false, "credentials": {"username": "byteblaze", "password": "hello1234"}},
+    "__WIKIPEDIA__": {"urls": ["http://localhost:8888" ]},
+    "__MAP__": {"urls": ["http://localhost:3030" ]}
+  }
+}

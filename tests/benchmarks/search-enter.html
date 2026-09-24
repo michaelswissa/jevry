@@ -1,0 +1,4 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Enter-only search</title></head><body>
+<h1>Find stays</h1><form role="search"><label for="query">Search destinations</label><input id="query" type="search" value="Berlin"></form><p id="result">Search is ready</p>
+<script>window.benchmarkReceipts={search:0};document.querySelector('form').onsubmit=e=>{e.preventDefault();window.benchmarkReceipts.search++;document.querySelector('#result').textContent='Available stays in '+document.querySelector('input').value;}</script>
+</body></html>

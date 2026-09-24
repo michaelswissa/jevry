@@ -1,0 +1,4 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Local stay search</title><style>body{font:18px system-ui;padding:35px}label{display:block}input,select,button{font:inherit;padding:8px;margin:10px}</style></head><body>
+<h1>Find a stay</h1><form><label for="destination">Destination</label><input id="destination" value="Berlin"><label for="guests">Guests</label><select id="guests"><option value="1">1 guest</option><option value="2">2 guests</option></select><button type="submit">Find stays</button></form><p id="results" role="status">Awaiting a search</p>
+<script>window.receipts=[];document.querySelector('form').onsubmit=e=>{e.preventDefault();const result={destination:document.querySelector('input').value,guests:document.querySelector('select').value};window.receipts.push(result);document.querySelector('#results').textContent='Stays in '+result.destination+' for '+result.guests+' guests';};</script>
+</body></html>

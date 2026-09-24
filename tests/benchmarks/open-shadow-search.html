@@ -1,0 +1,4 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Open-shadow search</title></head><body>
+<h1>Find stays</h1><search-widget></search-widget>
+<script>window.benchmarkReceipts={search:0};const root=document.querySelector('search-widget').attachShadow({mode:'open'});root.innerHTML='<form role="search"><label id="query-label">Search destinations</label><input aria-labelledby="query-label" type="search" value="Berlin"></form><p id="result">Search is ready</p>';root.querySelector('form').onsubmit=e=>{e.preventDefault();window.benchmarkReceipts.search++;root.querySelector('#result').textContent='Available stays in '+root.querySelector('input').value;}</script>
+</body></html>

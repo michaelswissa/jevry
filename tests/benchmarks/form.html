@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Shared browser-loop benchmark</title>
+<style>body{font:18px system-ui;margin:40px;max-width:750px}label,input,select,button{display:block;margin:14px 0}input,select,button{font:inherit;padding:10px}button{cursor:pointer}</style></head>
+<body><h1>Prepare travel preferences</h1>
+<p>This local fixture submits no booking and makes no network requests.</p>
+<form>
+<label for="destination">Destination</label><input id="destination" value="Berlin">
+<label for="cabin">Cabin</label><select id="cabin"><option value="economy">Economy</option><option value="business">Business</option></select>
+<button type="button" id="add">Add traveler</button>
+<div id="traveler"></div><button type="submit">Review preferences</button>
+</form><p id="result" role="status">Awaiting preferences</p>
+<script>
+window.benchmarkReceipts={add:0,review:0};
+document.querySelector('#add').onclick=()=>{
+  window.benchmarkReceipts.add++;
+  document.querySelector('#traveler').innerHTML='<label for="name">Traveler name</label><input id="name">';
+  document.querySelector('#add').remove();
+};
+document.querySelector('form').onsubmit=e=>{
+  e.preventDefault();window.benchmarkReceipts.review++;
+  document.querySelector('#result').textContent='Preferences ready: '+document.querySelector('#destination').value+' / '+document.querySelector('#cabin').value+' / '+(document.querySelector('#name')?.value||'missing traveler');
+};
+</script></body></html>

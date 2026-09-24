@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "scope": "Same local fixture facts and user prompts for Jevry and actual Firecrawl source graph. Runtime/toolkit/model protocol differences must be reported separately.",
+  "routes": {
+    "/fixture": "firecrawl-stays.html",
+    "/sources": "firecrawl-sources.html",
+    "/cedar": "firecrawl-cedar.html",
+    "/orbit": "firecrawl-orbit.html"
+  },
+  "measurement": {
+    "repetitions": 3,
+    "start": "User message is submitted after fixture page is loaded",
+    "finish": "Assistant final answer is available and independent page/evidence checks run",
+    "exclude": ["dependency installation", "browser launch", "initial fixture navigation"],
+    "include": ["all provider calls", "orchestrator reasoning", "tool execution", "final answer generation"],
+    "report": ["all successes and failures", "each raw turn time", "median by task", "model-call count", "tool-call count", "atomic browser-action count", "exact source commit and dependencies", "provider and effort configuration", "all adapters"]
+  },
+  "sequences": [
+    {
+      "id": "conversation-form",
+      "initialUrl": "{BASE}/fixture",
+      "resetBetweenRepeats": true,
+      "turns": [
+        {"id":"paris-two","text":"Find stays in Paris for two guests using the current form. Stop when its search result is visible.","expected":{"result":"Stays in Paris for 2 guests","destination":"Paris","guests":"2","submitReceipts":1}},
+        {"id":"london-same","text":"Now change it to London, keeping the same number of guests, and search again.","expected":{"result":"Stays in London for 2 guests","destination":"London","guests":"2","submitReceipts":2}},
+        {"id":"result-question","text":"What result did you get, and how many guests did we keep?","expected":{"answerFacts":["London","2 guests"],"additionalBrowserMutations":0,"submitReceipts":2}}
+      ]
+    },
+    {
+      "id": "source-research",
+      "newConversation": true,
+      "turns": [
+        {"id":"compare-policies","text":"Read the independent official sources linked from {BASE}/sources. Compare the nightly room price and cancellation policy for Cedar Stays versus Orbit Rooms for two guests, cite both source URLs, and identify the cheaper refundable option.","expected":{"readSources":["{BASE}/cedar","{BASE}/orbit"],"citations":["{BASE}/cedar","{BASE}/orbit"],"cedar":{"nightlyEUR":120,"freeCancellationHoursBeforeCheckIn":24},"orbit":{"nightlyEUR":95,"refundable":false},"refundableChoice":"Cedar Stays"}},
+        {"id":"research-followup","text":"Which one should I pick if free cancellation is required, and what is the deadline?","expected":{"choice":"Cedar Stays","deadlineHoursBeforeCheckIn":24}}
+      ]
+    }
+  ]
+}

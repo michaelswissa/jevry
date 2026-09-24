@@ -1,0 +1,6 @@
+{
+  "tool": "Built-in image_gen",
+  "reference": "User screenshot 2026-09-24 at 13.35.46.png",
+  "output": "public/brand/display-logo-chrome.png",
+  "prompt": "Edit this reference image to extract and reconstruct ONLY its exact sculptural chrome logo as a large high-resolution isolated product asset on a genuinely transparent background. The logo is the FULL LONG LOWERCASE j form with a tall straight vertical stem and a sweeping curved hook extending to the left at its foot. Above its stem, separated by a modest gap, is a compact northeast arrow. Match the reference silhouette, relative proportions, perspective, silver material, soft rounded bevels, extruded thickness, edges, folds/reflections, and elegant curvature closely. The full J stem is essential: do not shorten it into a U bowl or cut curve; do not turn it into a flat angular icon. J main body occupies roughly lower 70% of the mark height, arrow the upper 25%. Preserve the reference subtle 3D perspective and soft realistic chrome reflections, no colorful iridescence. Remove ALL UI, text, orbital arcs, background, detached dots, and all other objects. Center only the complete silver J and arrow composition on transparent canvas, with generous clean padding; do not clip any part. This asset must faithfully match the logo seen in the provided image, not redesign it."
+}

@@ -1,0 +1,21 @@
+node_modules/
+dist/
+dist-desktop/
+release/
+upstream/
+.env*
+!.env.example
+.DS_Store
+artifacts/
+*.log
+
+# Local credentials, browser sessions, and launch review output
+*.pem
+*.key
+*.p12
+*.pfx
+*.enc
+.auth/
+profiles/
+playwright/.auth/
+.impeccable/

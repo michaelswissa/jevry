@@ -1,0 +1,97 @@
+{
+  "name": "jevry-browser",
+  "version": "0.4.0-beta.13",
+  "private": true,
+  "description": "A fast desktop agentic browser powered by Jev",
+  "author": "Jevry",
+  "main": "dist-desktop/main.cjs",
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "dev:web": "vite --host 127.0.0.1",
+    "build": "tsc --noEmit && vite build && node scripts/build-desktop.mjs",
+    "start": "electron .",
+    "test": "vitest run",
+    "test:desktop": "node scripts/smoke-desktop.mjs",
+    "package:mac": "npm run build && electron-builder --mac --publish never",
+    "package:win": "npm run build && electron-builder --win --publish never",
+    "package:dir": "npm run build && electron-builder --dir --publish never",
+    "test:engine-browser": "node scripts/test-browser.mjs",
+    "test:research": "node scripts/smoke-research.mjs",
+    "test:challenges": "node scripts/smoke-challenges.mjs",
+    "test:packaged": "node scripts/test-packaged.mjs"
+  },
+  "dependencies": {
+    "@tesseract.js-data/eng": "1.0.0",
+    "border-beam": "1.4.0",
+    "bot-avatars": "^0.1.1",
+    "img-fx": "0.5.1",
+    "liquid-gooey": "0.2.2",
+    "lucide-react": "^0.577.0",
+    "metal-fx": "2.0.10",
+    "pngjs": "^7.0.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "tesseract.js": "7.0.0",
+    "thinking-orbs": "0.3.2",
+    "three": "^0.183.0",
+    "voice-glow": "0.2.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "@types/node": "^24.0.0",
+    "@types/pngjs": "^6.0.5",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "@vitejs/plugin-react": "^5.1.4",
+    "electron": "^44.4.3",
+    "electron-builder": "^26.8.1",
+    "esbuild": "^0.28.2",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1",
+    "vitest": "^4.0.18"
+  },
+  "build": {
+    "appId": "app.jevry.browser",
+    "productName": "Jevry",
+    "asar": true,
+    "asarUnpack": [
+      "node_modules/**"
+    ],
+    "files": [
+      "dist/**/*",
+      "dist-desktop/**/*",
+      "THIRD_PARTY_NOTICES.md",
+      "package.json"
+    ],
+    "directories": {
+      "output": "release"
+    },
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "category": "public.app-category.productivity",
+      "icon": "build/icon.png"
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "build/icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/michaelswissa/jevry.git"
+  }
+}

@@ -1,0 +1,30 @@
+name: Bug report
+description: Help us reproduce a browser, research, or setup failure.
+body:
+  - type: markdown
+    attributes:
+      value: "Remove secrets, private page content, and account information. Use private vulnerability reporting for security issues."
+  - type: input
+    id: version
+    attributes:
+      label: Version or commit and operating system
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Include the task and a public test page when possible.
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: Expected and actual result
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Redacted evidence and provider mode
+      description: Screenshots, errors, and whether inference was live or mocked. Never upload connection archives or browser profiles.

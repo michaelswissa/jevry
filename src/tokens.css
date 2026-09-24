@@ -1,0 +1,31 @@
+@font-face {font-family: Manrope; src:url('/fonts/Manrope-Variable.ttf') format('truetype');font-weight:200 800;font-display:swap;}
+:root {
+  --j-ink:#20221f; --j-porcelain:#f5f3ed; --j-paper:#fffefa; --j-citron:#d6ef83;
+  --j-muted:#64665f; --j-border:#d8d9d0; --j-silver:#b9bcb5;
+  --j-dark:#191b18; --j-dark-raised:#2b2e28; --j-dark-muted:#b0b5a8;
+  --j-success:#386239; --j-danger:#a33d2d; --j-warning:#805916;
+  --j-space-1:4px; --j-space-2:8px; --j-space-3:12px; --j-space-4:16px; --j-space-6:24px; --j-space-8:32px; --j-space-12:48px; --j-space-16:64px;
+  --j-radius-sm:6px; --j-radius-md:12px; --j-radius-lg:20px; --j-radius-pill:999px;
+  --j-shadow:0 8px 28px #20221f0c; --j-ease:cubic-bezier(.16,1,.3,1); --j-fast:160ms; --j-slow:440ms;
+  --bg:var(--j-dark);--panel:var(--j-dark-raised);--muted:var(--j-dark-muted);--line:#3c4037;--lime:var(--j-citron);--ink:var(--j-ink);
+  font-family:Manrope,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+}
+.metal-mark {color:var(--j-silver);flex-shrink:0;filter:grayscale(1) drop-shadow(0 14px 12px #0002);}
+.metal-mark svg {display:block;}
+.button {border-radius:var(--j-radius-pill);font-weight:650;letter-spacing:-.01em;}
+.button.primary {background:var(--j-citron);border-color:var(--j-citron);color:var(--j-ink);}
+.button.primary:hover:not(:disabled) {background:#c7e36c;}
+.button.secondary {background:var(--j-paper);border:1px solid var(--j-border);color:var(--j-ink);min-height:44px;}
+.button.quiet {background:transparent;color:var(--j-ink);}
+:where(button,a,input,textarea,select,summary):focus-visible {outline:2px solid #647c28;outline-offset:4px;}
+::selection {background:var(--j-citron);color:var(--j-ink);}
+/* A masked glyph has no button substrate; the shader follows the logo only. */
+.metal-mark .metal-fx-root {background:transparent!important;border:0!important;box-shadow:none!important;}
+.metal-mark .metal-fx-root::before,.metal-mark .metal-fx-root::after {box-shadow:none!important;border:0!important;}
+.metal-mark .metal-fx-inner {display:none!important;}
+.metal-mark .metal-fx-canvas {z-index:6;}
+.metal-mark .metal-fx-content > div {background:transparent!important;border:0!important;box-shadow:none!important;color:var(--j-silver)!important;}
+.metal-mark > .metal-fx-root,.metal-mark .metal-fx-content,.metal-mark .metal-fx-content > div {width:100%!important;height:100%!important;}
+.metal-mark svg {width:100%;height:100%;}
+.display-mark {display:grid;place-items:center;flex-shrink:0;pointer-events:none;}
+.display-mark img {width:100%;height:100%;object-fit:contain;}
