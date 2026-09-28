@@ -1,3 +1,4 @@
+import { SHARED_CONTEXT_RULE } from './jev-request-context';
 import { validateChoice, type JevRequest, type JevResponse, type ObservedAction } from './engine';
 
 // Choice limits and independent fan-out semantics:
@@ -86,6 +87,7 @@ export function compileJevWebActions(request: JevRequest, options: { game?: bool
   if (retained.some(([name]) => !/^fill_value_\d+$/.test(name))) return;
   const operationInstructions = record(operationHead.instructions);
   const instructions = {
+    ...(request.state.sharedActionContexts ? { sharedContextRule: SHARED_CONTEXT_RULE } : {}),
     ...(operationInstructions?.goal !== undefined ? { goal: operationInstructions.goal } : {}),
     rules: 'Choose exactly one complete next action for the current page. Each alternative already fixes both its operation and observed target. Follow actionPolicy, user constraints, field current values, and recent_actions in state. Do not repeat satisfied steps or change an already-correct field merely because another option is offered. Finish a relevant open popup or filter-operator step before choosing unrelated background links. DONE requires all requested outcomes; selecting DONE does not itself verify success.',
   };

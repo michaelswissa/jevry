@@ -31,3 +31,27 @@ An unknown model is a demonstrated cause of HTTP 400, not an established diagnos
 The beta.13 public release is a source preview, with no Windows installer asset. A source user can update with `git pull --ff-only`, `npm ci`, then `npm run dev` (or `npm run build` and `npm start`). Preserve local work and saved connections. In Connections, check the intended TypeSafe model and endpoint; the defaults are `jev-latest` and `https://api.typesafe.ai/v1/systemone`.
 
 Request the new **Server detail**, whether the connection test succeeds, and the exact task/site (with private information omitted). Never request keys/tokens. Close the issue only after reproducing and verifying its cause or receiving reporter confirmation that the failing task now works.
+
+## Reproduced request-builder failure and verified correction
+
+Further investigation found a real runtime cause of HTTP 400 with a valid saved connection. Chromium observed a local form containing 200 report buttons. Jevry repeated the same 1,200-character form context in every choice. The unmodified request builder generated 292,742 bytes, and the live API returned:
+
+```json
+{"detail":{"error_type":"max_tokens_exceeded"}}
+```
+
+TypeSafe documents 64k tokens per request and 32k for state plus the longest question: https://docs.typesafe.ai/models. This response contains no `message`; diagnostics must recognize the code too.
+
+The correction stores long, exactly repeated nearby text once in `state.sharedActionContexts`. Each option retains its original key and metadata and refers directly to that text. The question instructions explain the reference. Nothing is truncated and no candidate is omitted. Game requests retain their existing representation. Short or unique text stays inline, and fan-out requests beyond the joint-action limit use the same sharing.
+
+The initial compact request (61,621 bytes) returned HTTP 200. The repeatable `scripts/test-live-http400.mjs --run-live` then exercised a served Chromium fixture, production request builder, compiler and decoder, the real API, and a trusted CDP mouse click:
+
+| Phase | Request bytes | HTTP | Observed result |
+| --- | ---: | ---: | --- |
+| Expanded original representation | 292,761 | 400 | `max_tokens_exceeded` |
+| Shared-context representation | 61,640 | 200 | Jev 1.13.0 chose `CLICK:180`, the observed button labeled `Open report 179` |
+| Native input | — | — | Exactly one trusted click receipt for report 179; page output `Report 179 opened` |
+
+The first harness launch failed before network calls because its temporary bundle could not resolve `pngjs`. Linking its disposable dependency directory fixed the harness. All attempts are retained locally under `artifacts/issue-1/`. The successful live regression started at 2026-09-28T14:09:20.840Z. It makes two explicit read-only API calls and dispatches only the actual decoded action to a local synthetic fixture. This is regression evidence, not a benchmark or proof of the reporter's particular configuration.
+
+The fix removes the demonstrated duplication failure. Irreducibly large unique page content can still exceed a remote model's limit; that must report the actual input-limit reason rather than blaming credentials. The reporter's exact task and server response are still needed to establish that this reproduced cause is their cause.

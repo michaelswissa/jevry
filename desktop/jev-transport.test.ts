@@ -178,6 +178,36 @@ describe('bounded delayed inference replacement', () => {
     expect(fetch).toHaveBeenCalledOnce(); expect(vi.getTimerCount()).toBe(0);
   });
 
+  it('explains the live max_tokens_exceeded response even when no message is supplied', async () => {
+    const { calls, fetch } = network(); const work = fetchJevInference(endpoint, init);
+    const rejected = expect(work).rejects.toSatisfy((error: Error) =>
+      error.message.includes('HTTP 400') && error.message.includes('input limit') &&
+      error.message.includes('max_tokens_exceeded') && !error.message.includes('Check the Jev model'));
+    calls[0].respond(new Response(JSON.stringify({ detail: { error_type: 'max_tokens_exceeded' } }),
+      { status: 400, headers: { 'Content-Type': 'application/json' } }));
+    await rejected; await vi.advanceTimersByTimeAsync(30000);
+    expect(fetch).toHaveBeenCalledOnce(); expect(vi.getTimerCount()).toBe(0);
+  });
+
+  it('redacts credentials before a display boundary can split the key', async () => {
+    const { calls } = network(); const key = 'fixture-private-api-key-0123456789abcdef';
+    const work = fetchJevInference(endpoint, { ...init, headers: { Authorization: `Bearer ${key}` } });
+    const rejected = expect(work).rejects.toSatisfy((error: Error) =>
+      !error.message.includes(key.slice(0, 18)) && error.message.includes('[redacted]'));
+    calls[0].respond(new Response(JSON.stringify({ message: 'x'.repeat(380) + ' ' + key }),
+      { status: 400, headers: { 'Content-Type': 'application/json' } }));
+    await rejected;
+  });
+
+  it('does not echo arbitrary error-code fields', async () => {
+    const { calls } = network(); const work = fetchJevInference(endpoint, init);
+    const rejected = expect(work).rejects.toSatisfy((error: Error) =>
+      error.message.includes('HTTP 400') && !error.message.includes('private_customer_value'));
+    calls[0].respond(new Response(JSON.stringify({ detail: { error_type: 'private_customer_value' } }),
+      { status: 400, headers: { 'Content-Type': 'application/json' } }));
+    await rejected;
+  });
+
   it('redacts echoed credentials before truncating the server detail', async () => {
     const { calls } = network();
     const key = 'fixture-private-credential';

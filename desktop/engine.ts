@@ -15,6 +15,7 @@ import type {ObservedCollection} from './collections';
 import {extractJevLiteralCandidates,resolveJevLiteralCandidate,literalsForField,JEV_LITERAL_NONE} from './jev-literals';
 import {compileJevWebActions,decodeJevWebAction} from './jev-web-actions';
 import {fetchJevInference} from './jev-transport';
+import {shareJevActionContexts} from './jev-request-context';
 import {DestinationVisits} from './destination-visits';
 
 export interface BrowserAdapter {
@@ -354,7 +355,7 @@ export function buildJevRequest(page: PageState, goal: string, history: ActionHi
       };
     }
   }
-  return { body, ...space,selectGroups,literals };
+  return { body: gameIntent ? body : shareJevActionContexts(body), ...space,selectGroups,literals };
 }
 
 export function selectDecision(response: JevResponse, request: ReturnType<typeof buildJevRequest>) {

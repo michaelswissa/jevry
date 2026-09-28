@@ -3,13 +3,14 @@ import type { JevResponse } from './engine';
 const RETRYABLE = new Set([429, 503, 529]);
 const DEADLINE_MS = 25_000;
 const REPLACEMENT_DELAY_MS = 10_000;
-type Outcome = { kind: 'success'; value: JevResponse } | { kind: 'http'; status: number; detail?: string } |
+type HttpDetails = { detail?: string; code?: string };
+type Outcome = { kind: 'success'; value: JevResponse } | ({ kind: 'http'; status: number } & HttpDetails) |
   { kind: 'error'; error: unknown; phase: 'headers' | 'body' | 'deadline' };
 
 /** Only read a small structured error, never dump HTML or the request state. */
-async function errorDetail(response: Response, init: RequestInit, controller: AbortController): Promise<string | undefined> {
+async function errorDetail(response: Response, init: RequestInit, controller: AbortController): Promise<HttpDetails> {
   if (!response.body || !response.headers.get('content-type')?.includes('application/json')) {
-    cancelBody(response); return;
+    cancelBody(response); return {};
   }
   const reader = response.body.getReader();
   const timer = setTimeout(() => controller.abort(new DOMException('Error details timed out.', 'TimeoutError')), 1000);
@@ -20,7 +21,7 @@ async function errorDetail(response: Response, init: RequestInit, controller: Ab
       const { done, value } = await reader.read();
       if (done) break;
       size += value.byteLength;
-      if (size > 8192) return;
+      if (size > 8192) return {};
       chunks.push(value);
     }
     const bytes = new Uint8Array(size);
@@ -28,18 +29,22 @@ async function errorDetail(response: Response, init: RequestInit, controller: Ab
     for (const chunk of chunks) { bytes.set(chunk, offset); offset += chunk.byteLength; }
     const data = JSON.parse(new TextDecoder().decode(bytes));
     const detail = data?.error?.message ?? data?.detail?.message ?? data?.message ?? data?.detail ?? data?.error;
+    const rawCode = data?.detail?.error_type ?? data?.error?.code ?? data?.code;
+    // Only expose observed, known codes; arbitrary error fields may echo input.
+    const code = rawCode === 'max_tokens_exceeded' || rawCode === 'api_usage_error' ? rawCode : undefined;
     // Validation arrays can include the original input; never serialize them.
-    if (typeof detail !== 'string') return;
+    if (typeof detail !== 'string') return { code };
     let safe = detail;
     const authorization = new Headers(init.headers).get('authorization') || '';
     for (const secret of [authorization, authorization.replace(/^Bearer\s+/i, '')]) {
       if (secret) safe = safe.split(secret).join('[redacted]');
     }
-    return safe.replace(/\b(?:Bearer|Basic)\s+[^\s"'<>]+/gi, '[redacted]')
+    safe = safe.replace(/\b(?:Bearer|Basic)\s+[^\s"'<>]+/gi, '[redacted]')
       .replace(/\bsk-[A-Za-z0-9_-]+/g, '[redacted]')
       .replace(/((?:access_token|refresh_token|api_key|client_secret)["']?\s*[:=]\s*["']?)[^\s"'&,}]+/gi, '$1[redacted]')
-      .replace(/[\x00-\x1f\x7f]/g, ' ').trim().slice(0, 400) || undefined;
-  } catch { return; }
+      .replace(/[\x00-\x1f\x7f]/g, ' ').trim().slice(0, 400);
+    return { code, detail: safe || undefined };
+  } catch { return {}; }
   finally {
     clearTimeout(timer);
     void reader.cancel().catch(() => {});
@@ -47,8 +52,10 @@ async function errorDetail(response: Response, init: RequestInit, controller: Ab
   }
 }
 
-function httpError(status: number, detail?: string): Error {
-  const guidance = status === 400 || status === 422
+function httpError(status: number, { detail, code }: HttpDetails): Error {
+  const guidance = code === 'max_tokens_exceeded'
+    ? 'The page context exceeds Jev’s input limit. Narrow the visible page or task and try again.'
+    : status === 400 || status === 422
     ? 'Jev rejected the request. Check the Jev model and endpoint in Connections; if they are correct, report this error with the task that triggered it.'
     : status === 401 || status === 403
       ? 'Check your TypeSafe API key and its access in Connections.'
@@ -58,7 +65,7 @@ function httpError(status: number, detail?: string): Error {
           ? 'The Jev rate limit was reached. Wait briefly and try again.'
           : status >= 500 ? 'Jev is temporarily unavailable. Try again shortly.'
             : 'Check your Jev connection in Connections.';
-  return new Error(`Jev returned HTTP ${status}. ${guidance}${detail ? ` Server detail: ${detail}` : ''} No action executed.`);
+  return new Error(`Jev returned HTTP ${status}. ${guidance}${detail ? ` Server detail: ${detail}` : code ? ` Server code: ${code}.` : ''} No action executed.`);
 }
 
 function cancelBody(response?: Response) {
@@ -137,7 +144,7 @@ function attempt(endpoint: string, init: RequestInit, signal: AbortSignal | unde
             const failure: Extract<Outcome, { kind: 'http' }> = { kind: 'http', status: response.status };
             failures[index] = failure;
             if (RETRYABLE.has(response.status)) cancelBody(response);
-            else failure.detail = await errorDetail(response, init, controller);
+            else Object.assign(failure, await errorDetail(response, init, controller));
             failed(index, failure); return;
           }
           phase = 'body';
@@ -171,7 +178,7 @@ export async function fetchJevInference(endpoint: string, init: RequestInit, sig
     if (outcome.kind === 'success') return outcome.value;
     if (outcome.kind === 'http') {
       if (RETRYABLE.has(outcome.status) && index < 2) { await pause(300 * 2 ** index, signal); continue; }
-      throw httpError(outcome.status, outcome.detail);
+      throw httpError(outcome.status, outcome);
     }
     if (outcome.phase === 'body') throw outcome.error;
     throw new Error(outcome.phase === 'deadline' ? 'Jev timed out. No action executed.' : 'Could not connect to Jev. No action executed.', { cause: outcome.error });
