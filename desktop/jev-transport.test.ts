@@ -168,6 +168,7 @@ describe('bounded delayed inference replacement', () => {
     { error: { message: 'Unknown model fixture-model' } },
     { message: 'Unknown model fixture-model' },
     { detail: 'Unknown model fixture-model' },
+    { detail: { error_type: 'api_usage_error', message: 'Unknown model fixture-model' } },
     { error: 'Unknown model fixture-model' },
   ])('preserves structured HTTP 400 details without retrying: %j', async body => {
     const { calls, fetch } = network(); const work = fetchJevInference(endpoint, init);

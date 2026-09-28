@@ -27,7 +27,7 @@ async function errorDetail(response: Response, init: RequestInit, controller: Ab
     let offset = 0;
     for (const chunk of chunks) { bytes.set(chunk, offset); offset += chunk.byteLength; }
     const data = JSON.parse(new TextDecoder().decode(bytes));
-    const detail = data?.error?.message ?? data?.message ?? data?.detail ?? data?.error;
+    const detail = data?.error?.message ?? data?.detail?.message ?? data?.message ?? data?.detail ?? data?.error;
     // Validation arrays can include the original input; never serialize them.
     if (typeof detail !== 'string') return;
     let safe = detail;
