@@ -104,13 +104,13 @@ async function fixture(options:{kind?:'recaptcha'|'hcaptcha';overlay?:boolean;tr
         await route.fulfill({contentType:'text/html',body:`<!doctype html><title>Local verification fixture</title><body style="margin:0;height:1800px;background:rgb(240,0,0)"><form>
           ${options.translucent||options.transparentChild?`<div style="position:absolute;top:${top}px;left:40px;width:304px;height:340px;background:rgb(255,0,255)">PRIVATE underlying page text</div>`:''}
           <iframe id="anchor" src="${frameUrl}" style="position:absolute;top:${top}px;left:40px;width:304px;height:78px;border:0;opacity:${options.translucent?0.5:1}"></iframe>
-          ${options.image?`<iframe id="challenge" src="${imageUrl}" style="position:absolute;top:${top+100}px;left:40px;width:304px;height:240px;border:0"></iframe>`:''}
+          ${options.image||options.imageDelayMs?`<iframe id="challenge" src="${imageUrl}" style="visibility:${options.imageDelayMs?'hidden':'visible'};position:absolute;top:${top+100}px;left:40px;width:304px;height:240px;border:0"></iframe>`:''}
           <textarea hidden name="${provider==='recaptcha'?'g-recaptcha-response':'h-captcha-response'}">${options.completed?'already-present-fixture-value':''}</textarea>
           </form>${options.overlay?`<div style="position:absolute;top:${top}px;left:40px;width:304px;height:78px;background:white;z-index:3">Unrelated private overlay</div>`:''}
           <script>window.fixtureClicks=0;addEventListener('message',e=>{
             if(e.data!=='fixture-accepted')return;window.fixtureClicks++;
             if(${Boolean(options.imageDelayMs)}&&e.source===document.querySelector('#anchor').contentWindow){
-              setTimeout(()=>{const image=document.createElement('iframe');image.id='challenge';image.src='${imageUrl}';image.style.cssText='visibility:hidden;position:absolute;top:${top+100}px;left:40px;width:304px;height:240px;border:0';image.onload=()=>{image.style.visibility='visible';};document.querySelector('form').appendChild(image);},${options.imageDelayMs||0});return;
+              setTimeout(()=>{document.querySelector('#challenge').style.visibility='visible';},${options.imageDelayMs||0});return;
             }
             if(!${Boolean(options.reject)})setTimeout(()=>{let field=document.querySelector('textarea');if(${Boolean(options.replaceResponse)}){const next=field.cloneNode();field.replaceWith(next);field=next;}field.value='fixture-completion-value';},${options.responseDelayMs||0});
           });</script>`});
@@ -178,16 +178,20 @@ describe.runIf(process.env.JEVRY_BROWSER_TEST==='1')('verification in actual Chr
       expect(await page.locator('#anchor').evaluate((e:HTMLElement)=>[e.style.getPropertyValue('background-color'),e.style.getPropertyValue('background-clip')])).toEqual(['','']);
     });
   });
-  // The single-answer fixture must reveal a loaded document, not its initial
-  // about:blank frame. Delay the response too so CI exercises that ordering.
+  // Preload the hidden child during page.goto's load barrier, then reveal it
+  // after the checkbox delay. This test needs a stable document and CDP target;
+  // creating a cross-process iframe mid-run races target registration/painting.
   it('waits for a delayed visible image challenge before requesting one visual answer',async()=>{
     await fixture({imageDelayMs:1500,imageLoadDelayMs:500},async(browser,page,calls)=>{
+      const inferenceEvidence:Array<{clicks:number;captures:number}>=[];
       const infer=vi.fn(async(_config:any,_prompt:string,image:{data:string})=>{
-        expect(await page.evaluate(()=>(window as any).fixtureClicks)).toBe(1);
-        expect(calls.filter(c=>c.method==='Page.captureScreenshot')).toHaveLength(3);
+        inferenceEvidence.push({clicks:await page.evaluate(()=>(window as any).fixtureClicks),captures:calls.filter(c=>c.method==='Page.captureScreenshot').length});
         const png=Buffer.from(image.data,'base64');return JSON.stringify({action:'click',x:Math.round(28*png.readUInt32BE(16)/304),y:Math.round(37*png.readUInt32BE(20)/240)});
       });
       expect(await solveChallenge(browser,config,new AbortController().signal,()=>{},{infer})).toEqual({detected:true,solved:true});
+      // Keep assertions outside the provider callback so solver error handling
+      // cannot swallow a failed assertion and hide its useful diff.
+      expect(inferenceEvidence).toEqual([{clicks:1,captures:3}]);
       expect(infer).toHaveBeenCalledOnce();expect(await page.evaluate(()=>(window as any).fixtureClicks)).toBe(2);
       expect(calls.filter(c=>c.params?.type==='mousePressed')).toHaveLength(2);
     });
