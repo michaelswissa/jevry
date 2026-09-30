@@ -5,13 +5,15 @@
   </picture>
 </p>
 
-<h1 align="center">A browser built around Jev.</h1>
+<h1 align="center">Give your browser a task. Watch it work.</h1>
 
-<p align="center"><strong>Language models plan. Jev decides. Chromium acts.</strong><br>An open-source desktop browser that turns natural-language tasks into<br>structured decisions, guarded actions, and observable results.</p>
+<p align="center"><strong>Browse, research, and work through supported websites in plain language.</strong><br>Jevry is an open-source desktop browser with visible actions,<br>page-grounded results, and controls to stop or redirect the task.</p>
 
 [![Watch the Jevry introduction video](docs/media/jevry-web-preview.gif)](https://github.com/michaelswissa/jevry/releases/download/v0.4.0-beta.13/jevry-web.mp4)
 
 **[▶ Watch the full Jevry introduction · 72 seconds](https://github.com/michaelswissa/jevry/releases/download/v0.4.0-beta.13/jevry-web.mp4)**
+
+[Lightweight introduction excerpt · 8 seconds, 955 KiB](docs/media/jevry-web-preview.mp4) · [Media provenance](docs/media/README.md)
 
 <p align="center">
   <a href="#install">Install</a> ·
@@ -28,9 +30,11 @@
   <a href="CONTRIBUTING.md"><img alt="Pull requests welcome" src="https://img.shields.io/badge/PRs-welcome-d6ef83?labelColor=20221f"></a>
 </p>
 
-**Jevry explores a practical question: what happens when a browser's next action is a typed model decision?** The browser observes its current state, offers the actions it can actually execute, and asks TypeSafe's Jev to choose. A separate text model handles planning, language, and occasional visual reasoning. The desktop runtime owns execution, cancellation, and evidence.
+**Keep your tabs and conversations in one workspace.** Ask Jevry to find documentation, compare sources, or work through supported page controls, then follow its actions and check the result. Website support varies; the examples and measured results below show the current scope.
 
-Browse normally, hand over a task, watch each action, and redirect when needed. Your tabs and conversations stay in one workspace.
+**Language models plan. Jev decides. Chromium acts.** TypeSafe’s Jev chooses among actions the browser can execute; a separate text model handles planning, language, and occasional visual reasoning. The desktop runtime validates and executes actions and retains evidence.
+
+**Before you start:** this is a source preview, requiring Node.js 22.12+, a TypeSafe Jev API key, and a separate text-model connection. Model usage can cost money. [Install](#install) · [First-success guide](docs/FIRST_SUCCESS.md)
 
 ## See it in action
 
@@ -69,7 +73,7 @@ Jev itself currently consumes text/structured state. Screenshots used for game c
 
 ## Install
 
-**Source preview · 0.4.0-beta.13 · macOS and Windows CI.** Both platforms have passed native fixture workflows and packaged-app checks in [the public launch CI run](https://github.com/michaelswissa/jevry/actions/runs/35989440243). Real-provider experience is primarily tested on macOS. Signed installers, notarization, and automatic updates remain future work.
+**Source preview · latest tagged release: 0.4.0-beta.13 · macOS and Windows CI.** Cloning the default branch includes later fixes; see the [next-release checklist](docs/launch/READINESS.md). Both platforms have passed native fixture workflows and packaged-app checks in [the public launch CI run](https://github.com/michaelswissa/jevry/actions/runs/35989440243). Real-provider experience is primarily tested on macOS. Signed installers, notarization, and automatic updates remain future work.
 
 ### 1. Get the source and start the app
 
@@ -90,7 +94,7 @@ This opens the **Electron desktop app**. Keep the terminal running during develo
 
 *Connection setup in the latest desktop design.*
 
-You need **both** connections; provider usage may incur charges.
+You need **both** connections. The MIT-licensed source does not include model credits: Jev requests use your TypeSafe account; text/vision requests use your selected provider’s API billing or CLI plan/quota. API connection validation performs inference and can consume usage. A saved CLI login does not establish available quota or model access. There is no fixed per-task cost; it depends on the models, context, number of actions, and retries. Check both accounts’ usage before running a longer task.
 
 | Connection | Setup |
 | --- | --- |
@@ -102,7 +106,7 @@ Keys go into the app, not source files. Setup validates the connections. [Detail
 
 ### 3. Give it a first task
 
-Open a public page you know, then try **“Find the installation instructions on this site.”** Keep the page visible and follow the action feed. Use **Research** to compare sources, send a follow-up to change direction, or press **Stop** / Escape from page focus.
+Start with the [first-success guide](docs/FIRST_SUCCESS.md): open a small public page, ask one page-grounded question, and compare the answer with the visible page. Then try a documentation-navigation task. Keep the page visible and follow the action feed; press **Stop** / Escape from page focus to cancel.
 
 <details>
 <summary><strong>Build a local app, update, or troubleshoot setup</strong></summary>

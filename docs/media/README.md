@@ -15,3 +15,13 @@ All selected images were visually checked for the expected design and visible pr
 ## Introduction video
 
 `jevry-web-preview.gif` is an 8-second excerpt (seconds 1–9, at original speed) of the user-supplied `jevry-web.mp4`, resized to 960 pixels wide at 10 fps for the README. The preview links to the unchanged 72.2-second original video hosted as a GitHub release asset. This promotional overview is separate from the recorded game evidence and benchmark reports.
+
+## Lightweight introduction excerpt
+
+`jevry-web-preview.mp4` is a compressed H.264/yuv420p copy of the **existing public** `jevry-web-preview.gif`. It keeps the GIF’s full eight-second timeline (source introduction seconds 1–9), 80 frames at 10 fps, and 960 × 540 framing. There is no new trim, crop, speed change, rearrangement, or synthesized frame. Compression changes pixel values; this is not a lossless archival copy. The original GIF and linked 72.2-second introduction remain unchanged.
+
+This is a promotional excerpt, separate from the real-time game recording and measured benchmark evidence. The source GIF has no audio; the export also has no audio. Created with the already-installed FFmpeg, without new software or model calls:
+
+```sh
+ffmpeg -hide_banner -loglevel error -i docs/media/jevry-web-preview.gif -an -c:v libx264 -crf 23 -pix_fmt yuv420p -movflags +faststart -fps_mode passthrough docs/media/jevry-web-preview.mp4
+```
