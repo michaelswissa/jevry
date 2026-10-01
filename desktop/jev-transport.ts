@@ -7,9 +7,57 @@ type HttpDetails = { detail?: string; code?: string };
 type Outcome = { kind: 'success'; value: JevResponse } | ({ kind: 'http'; status: number } & HttpDetails) |
   { kind: 'error'; error: unknown; phase: 'headers' | 'body' | 'deadline' };
 
+function normalizePrivateText(value: string): string {
+  return value.replace(/[\x00-\x1f\x7f]/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
+function privateRequestStrings(init: RequestInit): string[] {
+  if (typeof init.body !== 'string') return [];
+  let value: unknown;
+  try { value = JSON.parse(init.body); } catch { return []; }
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return [];
+  const root = value as Record<string, unknown>;
+  const questions = root.questions && typeof root.questions === 'object' && !Array.isArray(root.questions)
+    ? Object.values(root.questions as Record<string, unknown>) : [];
+  const strings: string[] = [];
+  const pending: Array<{ item: unknown; questionRoot: boolean }> = [
+    ...(root.state === undefined ? [] : [{ item: root.state, questionRoot: false }]),
+    ...questions.map(item => ({ item, questionRoot: true })),
+  ];
+  while (pending.length) {
+    const { item, questionRoot } = pending.pop()!;
+    if (typeof item === 'string') {
+      const normalized = normalizePrivateText(item);
+      if (normalized.length >= 4) strings.push(normalized);
+    } else if (typeof item === 'number' && Number.isFinite(item)) {
+      const normalized = String(item);
+      if (normalized.length >= 4) strings.push(normalized);
+    } else if (Array.isArray(item)) pending.push(...item.map(child => ({ item: child, questionRoot: false })));
+    else if (item && typeof item === 'object') {
+      pending.push(...Object.entries(item)
+        // Question discriminators are public schema metadata, not user input.
+        .filter(([key]) => !questionRoot || key !== 'type')
+        .map(([, child]) => ({ item: child, questionRoot: false })));
+    }
+  }
+  return strings;
+}
+
+function repeatsPrivateInput(detail: string, init: RequestInit): boolean {
+  const normalizedDetail = normalizePrivateText(detail);
+  for (const source of privateRequestStrings(init)) {
+    if (normalizedDetail.includes(source)) return true;
+    for (let index = 0; index <= normalizedDetail.length - 24; index++) {
+      if (source.includes(normalizedDetail.slice(index, index + 24))) return true;
+    }
+  }
+  return false;
+}
+
 /** Only read a small structured error, never dump HTML or the request state. */
 async function errorDetail(response: Response, init: RequestInit, controller: AbortController): Promise<HttpDetails> {
-  if (!response.body || !response.headers.get('content-type')?.includes('application/json')) {
+  const contentType = response.headers.get('content-type')?.split(';', 1)[0].trim().toLowerCase() || '';
+  if (!response.body || (contentType !== 'application/json' && !contentType.endsWith('+json'))) {
     cancelBody(response); return {};
   }
   const reader = response.body.getReader();
@@ -42,8 +90,9 @@ async function errorDetail(response: Response, init: RequestInit, controller: Ab
     safe = safe.replace(/\b(?:Bearer|Basic)\s+[^\s"'<>]+/gi, '[redacted]')
       .replace(/\bsk-[A-Za-z0-9_-]+/g, '[redacted]')
       .replace(/((?:access_token|refresh_token|api_key|client_secret)["']?\s*[:=]\s*["']?)[^\s"'&,}]+/gi, '$1[redacted]')
-      .replace(/[\x00-\x1f\x7f]/g, ' ').trim().slice(0, 400);
-    return { code, detail: safe || undefined };
+      .replace(/[\x00-\x1f\x7f]/g, ' ').replace(/\s+/g, ' ').trim();
+    if (repeatsPrivateInput(safe, init)) return { code };
+    return { code, detail: safe.slice(0, 400) || undefined };
   } catch { return {}; }
   finally {
     clearTimeout(timer);

@@ -178,6 +178,120 @@ describe('bounded delayed inference replacement', () => {
     expect(fetch).toHaveBeenCalledOnce(); expect(vi.getTimerCount()).toBe(0);
   });
 
+  it('reads a structured application/problem+json error', async () => {
+    const { calls } = network(); const work = fetchJevInference(endpoint, init);
+    const rejected = expect(work).rejects.toThrow('Server detail: Unknown model fixture-model');
+    calls[0].respond(new Response(JSON.stringify({ message: 'Unknown model fixture-model' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/problem+json; charset=utf-8' },
+    }));
+    await rejected;
+  });
+
+  it('suppresses a scalar error detail copied from private request state', async () => {
+    const privateState = 'customer account 8842 has a private billing dispute';
+    const privateInit = { ...init, body: JSON.stringify({ state: { privateState } }) };
+    const { calls } = network(); const work = fetchJevInference(endpoint, privateInit);
+    const rejected = expect(work).rejects.toSatisfy((error: Error) =>
+      error.message.includes('HTTP 400') && !error.message.includes(privateState) &&
+      !error.message.includes('Server detail:'));
+    calls[0].respond(new Response(JSON.stringify({ message: `Invalid state: ${privateState}` }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' },
+    }));
+    await rejected;
+  });
+
+  it('finds private state even after a large question set', async () => {
+    const privateState = 'customer account 8842 has a private billing dispute';
+    const questions = Object.fromEntries(Array.from({ length: 160 }, (_, index) => [
+      `question_${index}`,
+      { type: 'choice', question: `public validation instruction number ${index}` },
+    ]));
+    const privateInit = { ...init, body: JSON.stringify({ state: { privateState }, questions }) };
+    const { calls } = network(); const work = fetchJevInference(endpoint, privateInit);
+    const rejected = expect(work).rejects.toSatisfy((error: Error) =>
+      error.message.includes('HTTP 400') && !error.message.includes(privateState) &&
+      !error.message.includes('Server detail:'));
+    calls[0].respond(new Response(JSON.stringify({ message: `Invalid state: ${privateState}` }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' },
+    }));
+    await rejected;
+  });
+
+  it.each(['a@b.co', '0427'])('suppresses a short private request value: %s', async privateValue => {
+    const privateInit = { ...init, body: JSON.stringify({ state: { privateValue } }) };
+    const { calls } = network(); const work = fetchJevInference(endpoint, privateInit);
+    const rejected = expect(work).rejects.toSatisfy((error: Error) =>
+      error.message.includes('HTTP 400') && !error.message.includes(privateValue) &&
+      !error.message.includes('Server detail:'));
+    calls[0].respond(new Response(JSON.stringify({ message: `Invalid value ${privateValue}` }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' },
+    }));
+    await rejected;
+  });
+
+  it('checks private input before truncating the displayed detail', async () => {
+    const privateValue = 'private.person@example.com';
+    const privateInit = { ...init, body: JSON.stringify({ state: { privateValue } }) };
+    const { calls } = network(); const work = fetchJevInference(endpoint, privateInit);
+    const rejected = expect(work).rejects.toSatisfy((error: Error) =>
+      error.message.includes('HTTP 400') && !error.message.includes('private.person@') &&
+      !error.message.includes('Server detail:'));
+    calls[0].respond(new Response(JSON.stringify({ message: 'x'.repeat(385) + privateValue }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' },
+    }));
+    await rejected;
+  });
+
+  it('normalizes repeated whitespace before comparing private input', async () => {
+    const privateInit = { ...init, body: JSON.stringify({ state: { name: 'Alice  Smith' } }) };
+    const { calls } = network(); const work = fetchJevInference(endpoint, privateInit);
+    const rejected = expect(work).rejects.toSatisfy((error: Error) =>
+      error.message.includes('HTTP 400') && !error.message.includes('Alice') &&
+      !error.message.includes('Server detail:'));
+    calls[0].respond(new Response(JSON.stringify({ message: 'Invalid customer: Alice\t\tSmith' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' },
+    }));
+    await rejected;
+  });
+
+  it('does not treat the public question discriminator as private input', async () => {
+    const privateInit = { ...init, body: JSON.stringify({
+      state: { page: 'settings' },
+      questions: { operation: { type: 'choice', criteria: { SAVE: 'Save settings' } } },
+    }) };
+    const { calls } = network(); const work = fetchJevInference(endpoint, privateInit);
+    const rejected = expect(work).rejects.toThrow('Server detail: Invalid choice criteria: expected at least one option');
+    calls[0].respond(new Response(JSON.stringify({ message: 'Invalid choice criteria: expected at least one option' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' },
+    }));
+    await rejected;
+  });
+
+  it.each([
+    [{ type: 'private-oncology-diagnosis' }, 'Invalid state: private-oncology-diagnosis'],
+    [{ name: 'Alice\u0000Smith' }, 'Invalid customer: Alice\u0000Smith'],
+  ])('still protects normalized private state fields: %j', async (state, message) => {
+    const privateInit = { ...init, body: JSON.stringify({
+      state,
+      questions: { operation: { type: 'choice', criteria: { SAVE: 'Save settings' } } },
+    }) };
+    const { calls } = network(); const work = fetchJevInference(endpoint, privateInit);
+    const rejected = expect(work).rejects.toSatisfy((error: Error) =>
+      error.message.includes('HTTP 400') && !error.message.includes('Server detail:'));
+    calls[0].respond(new Response(JSON.stringify({ message }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/problem+json' },
+    }));
+    await rejected;
+  });
+
   it('explains the live max_tokens_exceeded response even when no message is supplied', async () => {
     const { calls, fetch } = network(); const work = fetchJevInference(endpoint, init);
     const rejected = expect(work).rejects.toSatisfy((error: Error) =>
