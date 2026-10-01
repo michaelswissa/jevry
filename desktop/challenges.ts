@@ -335,10 +335,13 @@ export async function solveChallenge(browser:BrowserAdapter,textConfig:TextConfi
           await wait(Math.min(200,remaining),active);
         }
       }else{
-        for(let poll=0;poll<2;poll++){
+        // Refresh after each existing settling interval, including the last one.
+        // Otherwise completion arriving during the final wait leaves stale
+        // evidence and can trigger an unnecessary image/model request.
+        for(const delay of [0,50,150]){
+          if(delay)await wait(delay,active);
           evidence=await read(inspect(browser),active);
           if(evidence.completion[provider]?.present||evidence.region?.signature!==region.signature)break;
-          await wait(poll===0?50:150,active);
         }
       }
       if(evidence.completion[provider]?.key===initial.key&&evidence.completion[provider]?.present)return accepted();

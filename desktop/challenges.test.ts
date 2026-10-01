@@ -49,6 +49,49 @@ describe('bounded verification assistance',()=>{
       expect(f.infer).not.toHaveBeenCalled();expect(f.events.some(e=>e.verified)).toBe(false);
     }finally{vi.useRealTimers();}
   });
+  it('observes image completion arriving during the final settling interval before another inference',async()=>{
+    const f=fake(),waits:number[]=[];
+    const result=await solveChallenge(f.browser,config,new AbortController().signal,e=>f.events.push(e),{
+      infer:f.infer,wait:async(ms)=>{waits.push(ms);if(ms===150)f.state.completion.recaptcha.present=true;},
+    });
+    expect(result).toEqual({detected:true,solved:true});
+    expect(waits).toEqual([50,150]);
+    expect(f.infer).toHaveBeenCalledOnce();
+    expect(f.commands.filter(c=>c.method==='Page.captureScreenshot')).toHaveLength(2);
+    expect(f.input().filter(c=>c.params?.type==='mousePressed')).toHaveLength(1);
+  });
+  it('honors cancellation during the final image settling interval without more inference or input',async()=>{
+    const f=fake(),controller=new AbortController(),waits:number[]=[];
+    const reason=new DOMException('Stopped during image settling','AbortError');
+    await expect(solveChallenge(f.browser,config,controller.signal,e=>f.events.push(e),{
+      infer:f.infer,wait:async(ms)=>{
+        waits.push(ms);
+        if(ms===150){f.state.completion.recaptcha.present=true;controller.abort(reason);}
+      },
+    })).rejects.toBe(reason);
+    expect(waits).toEqual([50,150]);
+    expect(f.events.some(e=>e.verified)).toBe(false);
+    expect(f.infer).toHaveBeenCalledOnce();
+    expect(f.commands.filter(c=>c.method==='Page.captureScreenshot')).toHaveLength(2);
+    expect(f.input().filter(c=>c.params?.type==='mousePressed')).toHaveLength(1);
+    expect(f.input().filter(c=>c.params?.type==='mouseReleased')).toHaveLength(1);
+  });
+  it('rejects a replacement response during the final image settling interval without more inference or input',async()=>{
+    const f=fake(),waits:number[]=[];
+    const result=await solveChallenge(f.browser,config,new AbortController().signal,e=>f.events.push(e),{
+      infer:f.infer,wait:async(ms)=>{
+        waits.push(ms);
+        if(ms===150)f.state.completion.recaptcha={key:'replacement-widget',present:true};
+      },
+    });
+    expect(result).toMatchObject({detected:true,solved:false,reason:expect.stringContaining('widget changed')});
+    expect(waits).toEqual([50,150]);
+    expect(f.events.some(e=>e.verified)).toBe(false);
+    expect(f.infer).toHaveBeenCalledOnce();
+    expect(f.commands.filter(c=>c.method==='Page.captureScreenshot')).toHaveLength(2);
+    expect(f.input().filter(c=>c.params?.type==='mousePressed')).toHaveLength(1);
+    expect(f.input().filter(c=>c.params?.type==='mouseReleased')).toHaveLength(1);
+  });
   it('rejects a replaced response field or shifted checkbox during passive waiting',async()=>{
     for(const change of [(f:ReturnType<typeof fake>)=>f.state.completion.recaptcha={key:'replacement',present:true},(f:ReturnType<typeof fake>)=>f.state.region.signature+='shifted']){
       const f=checkbox();
@@ -107,12 +150,12 @@ async function fixture(options:{kind?:'recaptcha'|'hcaptcha';overlay?:boolean;tr
           ${options.image||options.imageDelayMs?`<iframe id="challenge" src="${imageUrl}" style="visibility:${options.imageDelayMs?'hidden':'visible'};position:absolute;top:${top+100}px;left:40px;width:304px;height:240px;border:0"></iframe>`:''}
           <textarea hidden name="${provider==='recaptcha'?'g-recaptcha-response':'h-captcha-response'}">${options.completed?'already-present-fixture-value':''}</textarea>
           </form>${options.overlay?`<div style="position:absolute;top:${top}px;left:40px;width:304px;height:78px;background:white;z-index:3">Unrelated private overlay</div>`:''}
-          <script>window.fixtureClicks=0;addEventListener('message',e=>{
-            if(e.data!=='fixture-accepted')return;window.fixtureClicks++;
+          <script>window.fixtureClicks=0;window.fixtureTimeline=[];addEventListener('message',e=>{
+            if(e.data!=='fixture-accepted')return;window.fixtureClicks++;window.fixtureTimeline.push({event:'click',at:performance.now()});
             if(${Boolean(options.imageDelayMs)}&&e.source===document.querySelector('#anchor').contentWindow){
               setTimeout(()=>{document.querySelector('#challenge').style.visibility='visible';},${options.imageDelayMs||0});return;
             }
-            if(!${Boolean(options.reject)})setTimeout(()=>{let field=document.querySelector('textarea');if(${Boolean(options.replaceResponse)}){const next=field.cloneNode();field.replaceWith(next);field=next;}field.value='fixture-completion-value';},${options.responseDelayMs||0});
+            if(!${Boolean(options.reject)})setTimeout(()=>{let field=document.querySelector('textarea');if(${Boolean(options.replaceResponse)}){const next=field.cloneNode();field.replaceWith(next);field=next;}field.value='fixture-completion-value';window.fixtureTimeline.push({event:'completion',at:performance.now()});},${options.responseDelayMs||0});
           });</script>`});
       }else if(['www.google.com','newassets.hcaptcha.com'].includes(url.hostname))await route.fulfill({contentType:'text/html',body:`<!doctype html>${options.transparentChild?'<style>html,body{background:transparent!important}</style>':''}<body style="margin:0;background:rgb(0,180,0)"><button style="position:absolute;left:16px;top:22px;width:24px;height:30px" onclick="parent.postMessage('fixture-accepted','*')">✓</button></body>`});
       else await route.abort();
@@ -246,6 +289,22 @@ describe.runIf(process.env.JEVRY_BROWSER_TEST==='1')('verification in actual Chr
       const infer=vi.fn(async(_config:any,_prompt:string,image:{data:string})=>{const png=Buffer.from(image.data,'base64');return JSON.stringify({action:'click',x:Math.round(28*png.readUInt32BE(16)/304),y:Math.round(37*png.readUInt32BE(20)/240)});});
       expect(await solveChallenge(browser,config,new AbortController().signal,()=>{},{infer})).toEqual({detected:true,solved:true});
       expect(infer).toHaveBeenCalledOnce();expect(calls.filter(c=>c.params?.type==='mousePressed')[0].viewportPoint).toEqual({x:68,y:177});
+    });
+  });
+  it('observes a delayed image response without another screenshot, inference, or click',async()=>{
+    await fixture({image:true,responseDelayMs:100},async(browser,page,calls)=>{
+      const infer=vi.fn(async(_config:any,_prompt:string,image:{data:string})=>{
+        await page.evaluate(()=>(window as any).fixtureTimeline.push({event:'inference',at:performance.now()}));
+        const png=Buffer.from(image.data,'base64');
+        return JSON.stringify({action:'click',x:Math.round(28*png.readUInt32BE(16)/304),y:Math.round(37*png.readUInt32BE(20)/240)});
+      });
+      expect(await solveChallenge(browser,config,new AbortController().signal,()=>{},{infer})).toEqual({detected:true,solved:true});
+      const timeline=await page.evaluate(()=>(window as any).fixtureTimeline);
+      expect(timeline.map((entry:any)=>entry.event)).toEqual(['inference','click','completion']);
+      expect(timeline[2].at-timeline[1].at).toBeGreaterThanOrEqual(90);
+      expect(infer).toHaveBeenCalledOnce();
+      expect(calls.filter(c=>c.method==='Page.captureScreenshot')).toHaveLength(2);
+      expect(calls.filter(c=>c.params?.type==='mousePressed')).toHaveLength(1);
     });
   });
   it('rejects changed image pixels before clicking and hands off after three decisions',async()=>{
