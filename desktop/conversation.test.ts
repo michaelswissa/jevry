@@ -39,6 +39,52 @@ describe('persistent multi-turn conversation',()=>{
    expect(messages[1].status).toBe('stopped');expect(messages[3].status).toBe('stopped');
    expect(messages[5].content).toBe('New answer');expect(JSON.stringify(messages)).not.toContain('STALE');
  });
+ it('keeps a running turn alive when its follow-up cannot be saved',async()=>{
+   let rejectSave=false,release:()=>void=()=>{};
+   let executing:TurnContext|undefined;
+   const service=new Conversations(blank(),async ctx=>{
+     executing=ctx;
+     await new Promise<void>(resolve=>{release=resolve;});
+     ctx.update('Original task completed.');
+   },()=>{if(rejectSave)throw new Error('Disk write failed');},()=>{});
+   service.send({text:'Keep working'});await eventually(()=>!!executing);
+   const before=structuredClone(service.snapshot());
+   rejectSave=true;
+   try {
+     expect(service.send({text:'Unsaved redirect'})).toEqual({ok:false,message:'Disk write failed'});
+     expect(executing!.signal.aborted).toBe(false);
+     expect(service.snapshot()).toEqual(before);
+   } finally {rejectSave=false;release();await eventually(()=>!service.running);}
+   expect(service.active()!.messages.at(-1)).toMatchObject({status:'complete',content:'Original task completed.'});
+ });
+ it('preserves an accepted pending redirect when a later follow-up cannot be saved',async()=>{
+   let rejectSave=false,release:()=>void=()=>{};
+   const started:string[]=[];
+   const service=new Conversations(blank(),async ctx=>{
+     started.push(ctx.message.content);
+     if(started.length===1)await new Promise<void>(resolve=>{release=resolve;});
+     ctx.update('Finished '+ctx.message.content);
+   },()=>{if(rejectSave)throw new Error('Disk write failed');},()=>{});
+   service.send({text:'Original task'});await eventually(()=>started.length===1);
+   service.send({text:'Accepted redirect'});
+   const before=structuredClone(service.snapshot());
+   rejectSave=true;
+   try {
+     expect(service.send({text:'Unsaved replacement'})).toEqual({ok:false,message:'Disk write failed'});
+     expect(service.snapshot()).toEqual(before);
+   } finally {rejectSave=false;release();await eventually(()=>!service.running);}
+   expect(started).toEqual(['Original task','Accepted redirect']);
+   expect(service.active()!.messages.at(-1)).toMatchObject({status:'complete',content:'Finished Accepted redirect'});
+ });
+ it('restores empty-conversation metadata after a rejected first message',()=>{
+   const snapshot:ConversationSnapshot={conversations:[{id:'empty',title:'New conversation',messages:[],createdAt:1,updatedAt:1,memory:''}],activeConversationId:'empty'};
+   const execute=vi.fn(async()=>{});
+   const service=new Conversations(snapshot,execute,()=>{throw new Error('Disk write failed');},()=>{});
+   const before=structuredClone(service.snapshot());
+   expect(service.send({text:'Unsaved title'})).toEqual({ok:false,message:'Disk write failed'});
+   expect(service.snapshot()).toEqual(before);
+   expect(execute).not.toHaveBeenCalled();
+ });
  it('isolates conversations and interrupts selected-away work',async()=>{
    const service=new Conversations(blank(),async ctx=>{await new Promise<void>(r=>ctx.signal.addEventListener('abort',()=>r(),{once:true}));},()=>{},()=>{});
    service.send({text:'keep this'});const id=service.active()!.id;

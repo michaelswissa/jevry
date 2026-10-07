@@ -76,14 +76,17 @@ export class Conversations {
    const conversation=this.active()!, now=Date.now();
    const message:ChatMessage={id:randomUUID(),role:'user',content:input.text.trim(),status:'complete',createdAt:now,events:[],mode:input.mode||'auto',sourceTabIds:input.sourceTabIds?.slice()};
    const answer:ChatMessage={id:randomUUID(),role:'assistant',content:'',status:'queued',createdAt:now,events:[],replyTo:message.id,mode:message.mode};
+   const previousTitle=conversation.title, previousUpdatedAt=conversation.updatedAt;
    if (conversation.messages.length===0) conversation.title=message.content.slice(0,64);
    conversation.messages.push(message,answer); conversation.updatedAt=now;
-   this.stop();
-   this.pending={conversation,message,answer};
    try { this.publish(true); } catch (e) {
-     this.pending=undefined; conversation.messages.splice(-2);
+     conversation.messages.splice(-2);
+     conversation.title=previousTitle; conversation.updatedAt=previousUpdatedAt;
      return {ok:false,message:e instanceof Error?e.message:'Could not save your message.'};
    }
+   // A rejected send must not cancel work the user already submitted.
+   this.stop();
+   this.pending={conversation,message,answer};
    void this.pump(); return {ok:true,id:message.id};
  }
  stop() {
